@@ -10,7 +10,7 @@ $(document).ready(function() {
     scselection = $('#disptype input:radio:checked').val();
     dataselection = "Total population within the locality";
     queue()
-        .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
+        .defer(d3.json, "js/us.json")
         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
         .await(ready);
 });
