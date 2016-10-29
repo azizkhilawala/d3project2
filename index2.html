@@ -833,7 +833,7 @@
 
                     <!-- style="border: solid;border-color: black;border-width: 1px;height: 60vh" -->
                     <div class="col-md-10">
-                        <svg id="choropeth" width="880" height="440">
+                        <svg id="choropeth" width="880" height="400">
                         <!-- <text x="10px" y="10px">Map</text> -->
                         </svg>
 
@@ -983,8 +983,8 @@
                     .range(["#f7fcfd", "#00441b"]);
 
             var projection = d3.geo.albersUsa()
-                    .scale(960)
-                    .translate([width / 2, height / 2]);
+                    .scale(750)
+                    .translate([width / 2.5, height / 3]);
 
 
             var path = d3.geo.path()
@@ -1024,7 +1024,7 @@
 
                 //to show county borders
                 svg.append("g")
-                        .attr("transform","translate(0,0)")
+                        .attr("transform","translate(0,40)")
                         .attr("class", "counties")
                         .selectAll("path")
                         .data(topojson.feature(us, us.objects.counties).features)
@@ -1051,7 +1051,7 @@
 
                 svg.append("g")
                         .attr("class", "legendLinear")
-                        .attr("transform", "translate(800,80)");
+                        .attr("transform", "translate(700,80)");
 
                 var legendLinear = d3.legend.color()
                         .shapeWidth(30)
@@ -1087,7 +1087,7 @@
 
                 //to show state borders only
                 svg.append("g")
-                        .attr("transform","translate(0,0)")
+                        .attr("transform","translate(0,40)")
                         .selectAll("path")
                         .data(topojson.feature(us, us.objects.states).features)
                         .enter().append("path")
