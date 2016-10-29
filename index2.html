@@ -1237,7 +1237,7 @@
             if (dataselection.indexOf("B01002_0") == 0) {
 
                 if (dataselection.indexOf("001E") != -1){
-                    codes=[",B01002_002E","B01002_003E"];
+                    codes=["B01002_002E","B01002_003E"];
                     querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
                     for(var i =0;i<codes.length;i++){
                         querystr = querystr + "," + codes[i];
