@@ -478,7 +478,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
         var svg = d3.select(mapID).append("svg")
             .attr("width", outerWidth)
             .attr("height", outerHeight)
-            .attr("id", "totalPopulationMap");
+            .attr("id",svgId);
 
         var g = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -1940,13 +1940,8 @@ function drawMap(error, usdata) {
 
 function pieChart(pienumber) {
     var svg1 = d3.select("#pie1");
-    svg1.selectAll('g').remove();
-    svg1 = d3.select("#pie2");
-    svg1.selectAll('g').remove();
-    svg1 = d3.select("#pie3");
-    svg1.selectAll('g').remove();
-
-
+    var svg2 = d3.select("#pie2");
+    var svg3 = d3.select("#pie3");
 
     if (dataselection.indexOf("B01003_0") == 0) {
         val = "B01003_001E";
@@ -1980,7 +1975,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
         } else
         if (dataselection.indexOf("002E") != -1) {
@@ -2010,7 +2008,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("026E") != -1) {
@@ -2040,7 +2041,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
             /*queue()
              .defer(d3.json, "
@@ -2097,33 +2101,11 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
-            /*queue()
-             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01002_002E,B01002_003E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-             .await(function (error, data1) {
-             var sum = 0;
-             var data = [];
-             data1.splice(0, 1);
-             data1.forEach(function (elem) {
-             if (elem[1] != null)
-             sum += parseInt(elem[1]);
-             });
-             data.push({
-             label: "Male",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function (elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[2]);
-             });
-             data.push({
-             label: "Female",
-             val: sum
-             });
-             drawPieChart(pienumber, data)
-             });*/
         }
     } else
     if (dataselection.indexOf("B02001_0") == 0) {
@@ -2153,7 +2135,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
         } else
         if (dataselection.indexOf("008E") != -1) {
@@ -2182,7 +2167,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         }
     } else
@@ -2237,6 +2225,9 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
 
                     drawPieChart("pie1", data2);
                     drawPieChart("pie2", data3);
@@ -2276,7 +2267,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart("pie1", data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         }
 
@@ -2309,7 +2303,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
         } else
         if (dataselection.indexOf("002E") != -1) {
@@ -2339,7 +2336,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("005E") != -1) {
@@ -2369,35 +2369,12 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie3", data)
                 });
         }
-        /*queue()
-         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,C05002_002E,C05002_008E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-         .await(function(error, data1) {
-         var sum = 0;
-         var data = [];
-         data1.splice(0, 1);
-         data1.forEach(function(elem) {
-         if (elem[1] != null)
-         sum += parseInt(elem[1]);
-         });
-         data.push({
-         label: "Native",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[2]);
-         });
-         data.push({
-         label: "Foreign Born",
-         val: sum
-         });
-         drawPieChart(pienumber, data)
-         });
-         */
+
     } else
     if (dataselection.indexOf("B19013_0") == 0) {
         val = "B19013_001E";
@@ -2433,124 +2410,12 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
         }
-        /*queue()
-         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B17002_002E,B17002_003E,B17002_004E,B17002_005E,B17002_006E,B17002_007E,B17002_008E,B17002_009E,B17002_010E,B17002_011E,B17002_012E,B17002_013E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-         .await(function(error, data1) {
-         var sum = 0;
-         var data = [];
-         data1.splice(0, 1);
-         data1.forEach(function(elem) {
-         if (elem[1] != null)
-         sum += parseInt(elem[1]);
-         });
-         data.push({
-         label: "Under .50",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[2]);
-         });
-         data.push({
-         label: ".50 to .74",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[3]);
-         });
-         data.push({
-         label: ".75 to .99",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[4]);
-         });
-         data.push({
-         label: "1.00 to 1.24",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[5]);
-         });
-         data.push({
-         label: "1.25 to 1.49",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[6]);
-         });
-         data.push({
-         label: "1.50 to 1.74",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[7]);
-         });
-         data.push({
-         label: "1.75 to 1.84",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[8]);
-         });
-         data.push({
-         label: "1.85 to 1.99",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[9]);
-         });
-         data.push({
-         label: "2.00 to 2.99",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[10]);
-         });
-         data.push({
-         label: "3.00 to 3.99",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[11]);
-         });
-         data.push({
-         label: "4.00 to 4.99",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[12]);
-         });
-         data.push({
-         label: "5.00 and over",
-         val: sum
-         });
-         drawPieChart(pienumber, data)
-         });*/
     } else
     if (dataselection.indexOf("B06012_0") == 0) {
         if (dataselection.indexOf("001E") != -1) {
@@ -2603,6 +2468,9 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
                     drawPieChart("pie1", data2)
                     drawPieChart("pie2", data3)
                 });
@@ -2633,7 +2501,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("009E") != -1) {
@@ -2662,7 +2533,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("013E") != -1) {
@@ -2691,7 +2565,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("017E") != -1) {
@@ -2720,110 +2597,14 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         }
     } else
     if (dataselection.indexOf("B06009_0") == 0) {
-        /*val = "B06009_001E";
-         queue()
-         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_007E,B06009_013E,B06009_019E,B06009_025E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B06009_002E,B06009_003E,B06009_004E,B06009_005E,B06009_006E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-         .await(function(error, data1, data2) {
-         var sum = 0;
-         var data = [];
-         data1.splice(0, 1);
-         data1.forEach(function(elem) {
-         if (elem[1] != null)
-         sum += parseInt(elem[1]);
-         });
-         data.push({
-         label: "Born in State of Residence",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[2]);
-         });
-         data.push({
-         label: "Born in Other State in the United States",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[3]);
-         });
-         data.push({
-         label: "Native; Born Outside the United States",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[4]);
-         });
-         data.push({
-         label: "Foreign Born",
-         val: sum
-         });
-         sum = 0;
-
-         drawPieChart('pie1', data);
-
-
-         var sum = 0;
-         var data = [];
-         data2.splice(0, 1);
-         data2.forEach(function(elem) {
-         if (elem[1] != null)
-         sum += parseInt(elem[1]);
-         });
-         data.push({
-         label: "Less than High School Graduate",
-         val: sum
-         });
-         sum = 0;
-         data2.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[2]);
-         });
-         data.push({
-         label: "High School Graduate (Includes Equivalency)",
-         val: sum
-         });
-         sum = 0;
-         data2.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[3]);
-         });
-         data.push({
-         label: "Some College or Associate's Degree",
-         val: sum
-         });
-         sum = 0;
-         data2.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[4]);
-         });
-         data.push({
-         label: "Bachelor's Degree",
-         val: sum
-         });
-         sum = 0;
-         data2.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[5]);
-         });
-         data.push({
-         label: "Graduate or Professional Degree",
-         val: sum
-         });
-
-         drawPieChart('pie2', data)
-         });
-         */
         if (dataselection.indexOf("001E") != -1) {
             codesfor3 = ["B06012_002E", "B06012_003E", "B06012_004E", "B06012_005E", "B06012_006E"];
             codesfor2 = ["B06012_007E", "B06012_013E", "B06012_019E", "B06012_025E"];
@@ -2875,6 +2656,9 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
                     drawPieChart("pie1", data2)
                     drawPieChart("pie2", data3)
                 });
@@ -2905,7 +2689,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("013E") != -1) {
@@ -2934,7 +2721,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("019E") != -1) {
@@ -2963,7 +2753,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("025E") != -1) {
@@ -2992,7 +2785,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         }
     } else
@@ -3025,124 +2821,12 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
-            /*queue()
-             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08303_002E,B08303_003E,B08303_004E,B08303_005E,B08303_006E,B08303_007E,B08303_008E,B08303_009E,B08303_010E,B08303_011E,B08303_012E,B08303_013E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-             .await(function(error, data1) {
-             var sum = 0;
-             var data = [];
-             data1.splice(0, 1);
-             data1.forEach(function(elem) {
-             if (elem[1] != null)
-             sum += parseInt(elem[1]);
-             });
-             data.push({
-             label: "Under .50",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[2]);
-             });
-             data.push({
-             label: "5 to 9 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[3]);
-             });
-             data.push({
-             label: "10 to 14 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[4]);
-             });
-             data.push({
-             label: "15 to 19 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[5]);
-             });
-             data.push({
-             label: "20 to 24 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[6]);
-             });
-             data.push({
-             label: "25 to 29 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[7]);
-             });
-             data.push({
-             label: "30 to 34 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[8]);
-             });
-             data.push({
-             label: "35 to 39 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[9]);
-             });
-             data.push({
-             label: "40 to 44 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[10]);
-             });
-             data.push({
-             label: "45 to 59 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[11]);
-             });
-             data.push({
-             label: "60 to 89 Minutes",
-             val: sum
-             });
-             sum = 0;
-             data1.forEach(function(elem) {
-             if (elem[2] != null)
-             sum += parseInt(elem[12]);
-             });
-             data.push({
-             label: "90 or More Minutes",
-             val: sum
-             });
-             drawPieChart(pienumber, data)
-             });
-             */
+
         }
     }
     if (dataselection.indexOf("B08301_0") == 0) {
@@ -3172,7 +2856,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+                    svg1.selectAll('g').remove();
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie1", data)
                 });
         } else
         if (dataselection.indexOf("002E") != -1) {
@@ -3201,7 +2888,10 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         } else
         if (dataselection.indexOf("004E") != -1) {
@@ -3230,7 +2920,9 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie3", data)
                 });
         } else
         if (dataselection.indexOf("010E") != -1) {
@@ -3259,89 +2951,13 @@ function pieChart(pienumber) {
                         });
                         sum = 0;
                     }
-                    drawPieChart(pienumber, data)
+
+                    svg2.selectAll('g').remove();
+                    svg3.selectAll('g').remove();
+                    drawPieChart("pie2", data)
                 });
         }
-        /*queue()
-         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08301_002E,B08301_010E,B08301_016E,B08301_017E,B08301_018E,B08301_019E,B08301_020E,B08301_021E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-         .await(function(error, data1) {
-         var sum = 0;
-         var data = [];
-         data1.splice(0, 1);
-         data1.forEach(function(elem) {
-         if (elem[1] != null)
-         sum += parseInt(elem[1]);
-         });
-         data.push({
-         label: "Car, Truck, or Van",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[2]);
-         });
-         data.push({
-         label: "Public Transportation (Excluding Taxicab)",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[3]);
-         });
-         data.push({
-         label: "Taxicab",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[4]);
-         });
-         data.push({
-         label: "Motorcycle",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[5]);
-         });
-         data.push({
-         label: "Bicycle",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[6]);
-         });
-         data.push({
-         label: "Walked",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[7]);
-         });
-         data.push({
-         label: "Other Means",
-         val: sum
-         });
-         sum = 0;
-         data1.forEach(function(elem) {
-         if (elem[2] != null)
-         sum += parseInt(elem[8]);
-         });
-         data.push({
-         label: "Worked at Home",
-         val: sum
-         });
-         drawPieChart(pienumber, data)
-         });
-         */
+ 
     }
 }
 

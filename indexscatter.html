@@ -1041,7 +1041,13 @@
         group.append("g")
                 .attr('class', 'axis')
                 .attr('transform', 'translate(0,' +chartHeight + ')')
-                .call(xAxis);
+                .call(xAxis)
+                .selectAll("text")
+                .attr("y", 0)
+                .attr("x", 9)
+                .attr("dy", ".35em")
+                .attr("transform", "rotate(90)")
+                .style("text-anchor", "start");
 
         var yAxis = d3.svg.axis()
                 .scale(yScale)
