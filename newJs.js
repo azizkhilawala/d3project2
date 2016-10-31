@@ -1,3 +1,275 @@
+var biggestObject={
+  "Total population within the locality-Total":"B01003_001E",
+
+  "Age distribution broken down by sex-Total":"B01001_001E",
+  "Male":"B01001_002E",
+  "Under 5 Years":"B01001_003E",
+  "5 to 9 Years":"B01001_004E",
+  "10 to 14 Years":"B01001_005E",
+  "15 to 17 Years":"B01001_006E",
+  "18 and 19 Years":"B01001_007E",
+  "20 Years":"B01001_008E",
+  "21 Years":"B01001_009E",
+  "22 to 24 Years":"B01001_010E",
+  "25 to 29 Years":"B01001_011E",
+  "30 to 34 Years":"B01001_012E",
+  "35 to 39 Years":"B01001_013E",
+  "40 to 44 Years":"B01001_014E",
+  "45 to 49 Years":"B01001_015E",
+  "50 to 54 Years":"B01001_016E",
+  "55 to 59 Years":"B01001_017E",
+  "60 and 61 Years":"B01001_018E",
+  "62 to 64 Years":"B01001_019E",
+  "65 and 66 Years":"B01001_020E",
+  "67 to 69 Years":"B01001_021E",
+  "70 to 74 Years":"B01001_022E",
+  "75 to 79 Years":"B01001_023E",
+  "80 to 84 Years":"B01001_024E",
+  "85 Years and over":"B01001_025E",
+  "Female":"B01001_026E",
+  "Under 5 Years":"B01001_027E",
+  "5 to 9 Years":"B01001_028E",
+  "10 to 14 Years":"B01001_029E",
+  "15 to 17 Years":"B01001_030E",
+  "18 and 19 Years":"B01001_031E",
+  "20 Years":"B01001_032E",
+  "21 Years":"B01001_033E",
+  "22 to 24 Years":"B01001_034E",
+  "25 to 29 Years":"B01001_035E",
+  "30 to 34 Years":"B01001_036E",
+  "35 to 39 Years":"B01001_037E",
+  "40 to 44 Years":"B01001_038E",
+  "45 to 49 Years":"B01001_039E",
+  "50 to 54 Years":"B01001_040E",
+  "55 to 59 Years":"B01001_041E",
+  "60 and 61 Years":"B01001_042E",
+  "62 to 64 Years":"B01001_043E",
+  "65 and 66 Years":"B01001_044E",
+  "67 to 69 Years":"B01001_045E",
+  "70 to 74 Years":"B01001_046E",
+  "75 to 79 Years":"B01001_047E",
+  "80 to 84 Years":"B01001_048E",
+  "85 Years and over":"B01001_049E",
+
+
+  "Median Age by sex - Total":"B01002_001E",
+  "Median Age - Male":"B01002_002E",
+  "Median Age - Female":"B01002_003E",
+
+
+  "Race-Total":"B02001_001E",
+  "White Alone":"B02001_002E",
+  "Black or African American Alone":"B02001_003E",
+  "American Indian and Alaska Native Alone":"B02001_004E",
+  "Asian Alone":"B02001_005E",
+  "Native Hawaiian and Other Pacific Islander Alone":"B02001_006E",
+  "Some Other Race Alone":"B02001_007E",
+  "Two or More Races":"B02001_008E",
+  "Two Races Including Some Other Race":"B02001_009E",
+  "Two Races Excluding Some Other Race, and Three or More Races":"B02001_010E",
+
+
+  "Living arrangement for adults (18 years and over)-Total":"B09021_001E",
+  "Lives Alone":"B09021_002E",
+  "Householder Living With Spouse or Spouse of Householder":"B09021_003E",
+  "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_004E",
+  "Child of Householder":"B09021_005E",
+  "Other Relatives":"B09021_006E",
+  "Other Nonrelatives":"B09021_007E",
+  "18 to 34 Years":"B09021_008E",
+  "Lives Alone":"B09021_009E",
+  "Householder Living With Spouse or Spouse of Householder":"B09021_010E",
+  "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_011E",
+  "Child of Householder":"B09021_012E",
+  "Other Relatives":"B09021_013E",
+  "Other Nonrelatives":"B09021_014E",
+  "35 to 64 Years":"B09021_015E",
+  "Lives Alone":"B09021_016E",
+  "Householder Living With Spouse or Spouse of Householder":"B09021_017E",
+  "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_018E",
+  "Child of Householder":"B09021_019E",
+  "Other Relatives":"B09021_020E",
+  "Other Nonrelatives":"B09021_021E",
+  "65 Years and over":"B09021_022E",
+  "Lives Alone":"B09021_023E",
+  "Householder Living With Spouse or Spouse of Householder":"B09021_024E",
+  "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_025E",
+  "Child of Householder":"B09021_026E",
+  "Other Relatives":"B09021_027E",
+  "Other Nonrelatives":"B09021_028E",
+
+
+  "Place of birth by nativity-Total":"C05002_001E",
+  "Native":"C05002_002E",
+  "Born in State of Residence":"C05002_003E",
+  "Born in Other State in the United States":"C05002_004E",
+  "Born Outside the United States":"C05002_005E",
+  "Puerto Rico":"C05002_006E",
+  "U.s. Island Areas or Born Abroad of American Parent(S)":"C05002_007E",
+  "Foreign Born":"C05002_008E",
+
+  "Median Household Income in the Past 12 Months (In 2015 Inflation-Adjusted Dollars)":"B19013_001E",
+
+  "Per Capita Income in the Past 12 Months (In 2015 Inflation-Adjusted Dollars)":"B19301_001E",
+
+  "Income to poverty-level ratio-Total":"B17002_001E",
+  "Under .50":"B17002_002E",
+  ".50 to .74":"B17002_003E",
+  ".75 to .99":"B17002_004E",
+  "1.00 to 1.24":"B17002_005E",
+  "1.25 to 1.49":"B17002_006E",
+  "1.50 to 1.74":"B17002_007E",
+  "1.75 to 1.84":"B17002_008E",
+  "1.85 to 1.99":"B17002_009E",
+  "2.00 to 2.99":"B17002_010E",
+  "3.00 to 3.99":"B17002_011E",
+  "4.00 to 4.99":"B17002_012E",
+  "5.00 and over":"B17002_013E",
+
+
+  "Poverty level by place of birth-Total":"B06012_001E",
+  "Below 100 Percent of the Poverty Level":"B06012_002E",
+  "100 to 149 Percent of the Poverty Level":"B06012_003E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_004E",
+  "Born in State of Residence":"B06012_005E",
+  "Below 100 Percent of the Poverty Level":"B06012_006E",
+  "100 to 149 Percent of the Poverty Level":"B06012_007E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_008E",
+  "Born in Other State in the United States":"B06012_009E",
+  "Below 100 Percent of the Poverty Level":"B06012_010E",
+  "100 to 149 Percent of the Poverty Level":"B06012_011E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_012E",
+  "Native; Born Outside the United States":"B06012_013E",
+  "Below 100 Percent of the Poverty Level":"B06012_014E",
+  "100 to 149 Percent of the Poverty Level":"B06012_015E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_016E",
+  "Foreign Born":"B06012_017E",
+  "Below 100 Percent of the Poverty Level":"B06012_018E",
+  "100 to 149 Percent of the Poverty Level":"B06012_019E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_020E",
+
+  "Educational attainment by place of birth-Total":"B06009_001E",
+  "Less than High School Graduate":"B06009_002E",
+  "High School Graduate (Includes Equivalency)":"B06009_003E",
+  "Some College or Associate's Degree":"B06009_004E",
+  "Bachelor's Degree":"B06009_005E",
+  "Graduate or Professional Degree":"B06009_006E",
+  "Born in State of Residence":"B06009_007E",
+  "Less than High School Graduate":"B06009_008E",
+  "High School Graduate (Includes Equivalency)":"B06009_009E",
+  "Some College or Associate's Degree":"B06009_010E",
+  "Bachelor's Degree":"B06009_011E",
+  "Graduate or Professional Degree":"B06009_012E",
+  "Born in Other State in the United States":"B06009_013E",
+  "Less than High School Graduate":"B06009_014E",
+  "High School Graduate (Includes Equivalency)":"B06009_015E",
+  "Some College or Associate's Degree":"B06009_016E",
+  "Bachelor's Degree":"B06009_017E",
+  "Graduate or Professional Degree":"B06009_018E",
+  "Native; Born Outside the United States":"B06009_019E",
+  "Less than High School Graduate":"B06009_020E",
+  "High School Graduate (Includes Equivalency)":"B06009_021E",
+  "Some College or Associate's Degree":"B06009_022E",
+  "Bachelor's Degree":"B06009_023E",
+  "Graduate or Professional Degree":"B06009_024E",
+  "Foreign Born":"B06009_025E",
+  "Less than High School Graduate":"B06009_026E",
+  "High School Graduate (Includes Equivalency)":"B06009_027E",
+  "Some College or Associate's Degree":"B06009_028E",
+  "Bachelor's Degree":"B06009_029E",
+  "Graduate or Professional Degree":"B06009_030E",
+
+  "Travel time to work-Total":"B08303_001E",
+  "Less than 5 Minutes":"B08303_002E",
+  "5 to 9 Minutes":"B08303_003E",
+  "10 to 14 Minutes":"B08303_004E",
+  "15 to 19 Minutes":"B08303_005E",
+  "20 to 24 Minutes":"B08303_006E",
+  "25 to 29 Minutes":"B08303_007E",
+  "30 to 34 Minutes":"B08303_008E",
+  "35 to 39 Minutes":"B08303_009E",
+  "40 to 44 Minutes":"B08303_010E",
+  "45 to 59 Minutes":"B08303_011E",
+  "60 to 89 Minutes":"B08303_012E",
+  "90 or More Minutes":"B08303_013E",
+
+  "Means of transportation to work-Total":"B08301_001E",
+  "Car, Truck, or Van":"B08301_002E",
+  "Drove Alone":"B08301_003E",
+  "Carpooled":"B08301_004E",
+  "In 2-Person Carpool":"B08301_005E",
+  "In 3-Person Carpool":"B08301_006E",
+  "In 4-Person Carpool":"B08301_007E",
+  "In 5- or 6-Person Carpool":"B08301_008E",
+  "In 7-or-More-Person Carpool":"B08301_009E",
+  "Public Transportation (Excluding Taxicab)":"B08301_010E",
+  "Bus or Trolley Bus":"B08301_011E",
+  "Streetcar or Trolley Car (Carro Publico in Puerto Rico)":"B08301_012E",
+  "Subway or Elevated":"B08301_013E",
+  "Railroad":"B08301_014E",
+  "Ferryboat":"B08301_015E",
+  "Taxicab":"B08301_016E",
+  "Motorcycle":"B08301_017E",
+  "Bicycle":"B08301_018E",
+  "Walked":"B08301_019E",
+  "Other Means":"B08301_020E",
+  "Worked at Home":"B08301_021E",
+}
+
+var ageDistributionObjMale = {
+  // "Male":"B01001_002E",
+  "Under 5 Years":"B01001_003E",
+  "5 to 9 Years":"B01001_004E",
+  "10 to 14 Years":"B01001_005E",
+  "15 to 17 Years":"B01001_006E",
+  "18 and 19 Years":"B01001_007E",
+  "20 Years":"B01001_008E",
+  "21 Years":"B01001_009E",
+  "22 to 24 Years":"B01001_010E",
+  "25 to 29 Years":"B01001_011E",
+  "30 to 34 Years":"B01001_012E",
+  "35 to 39 Years":"B01001_013E",
+  "40 to 44 Years":"B01001_014E",
+  "45 to 49 Years":"B01001_015E",
+  "50 to 54 Years":"B01001_016E",
+  "55 to 59 Years":"B01001_017E",
+  "60 and 61 Years":"B01001_018E",
+  "62 to 64 Years":"B01001_019E",
+  "65 and 66 Years":"B01001_020E",
+  "67 to 69 Years":"B01001_021E",
+  "70 to 74 Years":"B01001_022E",
+  "75 to 79 Years":"B01001_023E",
+  "80 to 84 Years":"B01001_024E",
+  "85 Years and over":"B01001_025E"
+}
+
+var ageDistributionObjFemale={
+  //"Female":"B01001_026E",
+  "Under 5 Years":"B01001_027E",
+  "5 to 9 Years":"B01001_028E",
+  "10 to 14 Years":"B01001_029E",
+  "15 to 17 Years":"B01001_030E",
+  "18 and 19 Years":"B01001_031E",
+  "20 Years":"B01001_032E",
+  "21 Years":"B01001_033E",
+  "22 to 24 Years":"B01001_034E",
+  "25 to 29 Years":"B01001_035E",
+  "30 to 34 Years":"B01001_036E",
+  "35 to 39 Years":"B01001_037E",
+  "40 to 44 Years":"B01001_038E",
+  "45 to 49 Years":"B01001_039E",
+  "50 to 54 Years":"B01001_040E",
+  "55 to 59 Years":"B01001_041E",
+  "60 and 61 Years":"B01001_042E",
+  "62 to 64 Years":"B01001_043E",
+  "65 and 66 Years":"B01001_044E",
+  "67 to 69 Years":"B01001_045E",
+  "70 to 74 Years":"B01001_046E",
+  "75 to 79 Years":"B01001_047E",
+  "80 to 84 Years":"B01001_048E",
+  "85 Years and over":"B01001_049E"
+}
+
 var bigObject = {
     "Total population within the locality": "B01003_001E",
     "Age distribution broken down by sex": "B01001_001E",
@@ -85,8 +357,8 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     totalPopulation.splice(0, 1);
     totalPopulation.forEach(function(index) {
         if (index[1] > 0) {
-            pop1.push(parseInt(index[1]));
-            pop2.push(parseInt(index[2]));
+            pop1.push(parseInt(index[1])); //value
+            pop2.push(parseInt(index[2])); //state id
         }
     });
 
@@ -172,7 +444,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     publicTranArr.push(ptr2);
 
     // logging data
-    console.log("totalPopArr", totalPopArr, medianAgeArr);
+    console.log("totalPopArr and medianAgeArr for 8 maps", totalPopArr, medianAgeArr);
     //function start here
 
     drawEightMaps('#eight-map-1', '#totalPopulationMap', totalPopArr);
@@ -240,7 +512,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
 
                 var index = parseFloat([totalValueArr[1].indexOf(d.id)]);
 
-                return "<span>" + d3.format('.2s')(prop) + "<span>";
+                return  + "<span>" + d3.format('.2s')(prop) + "<span>";
 
             });
         /**
@@ -264,10 +536,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
             .on("mouseleave", tip.hide);
     } //function end here
 
-
-
-
-} //8 maps data function
+} //8 maps data function ends here
 
 
 /**************************Aziz integration end 1**********************************/
@@ -276,18 +545,19 @@ var scselection = "state";
 var stateNameObj = [];
 var countyNameObj = [];
 var us, one;
-var scselection; //state or count selection
+var scselection; //state or county selection
 var dataselection; //dataset selection
 var svg = d3.select("#choropeth"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
+
 $(document).ready(function() {
     //console.log(window.innerWidth,window.innerHeight);
     scselection = $('#disptype input:radio:checked').val();
     $("#addDataSetNameHere").text("Total Population within the locality");
     queue()
         .defer(d3.json, "js/us.json")
-        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key="+apiKey)
         .await(ready);
 });
 
@@ -296,40 +566,53 @@ function ready(error, us1, data1) {
     one = data1;
     drawMap(null, one);
 }
+
+//for each of 13 variable selection
 $("input[name=datasettype]").change(function() {
     var t = $('#level1dataset input:radio:checked').val();
     $("#" + t).removeClass("hidden");
     $("#" + t).addClass("activemenu");
     $('#level1dataset').addClass("hidden")
     $('#menuback').removeClass('hidden');
-
-    //$( "#"+t +" label:first-child").addClass('checked', true);
-    //$( "#"+t +" input:first-child").attr('checked', true);
     $("#" + t + " label:first-child").click();
 });
+
+//back menu show/hide
 $("#menuback").click(function() {
     $(".activemenu").addClass("hidden");
     $('#level1dataset').removeClass("hidden");
     $(".activemenu").removeClass("activemenu");
     $('#menuback').addClass('hidden');
 });
+
+//first level of each variables
 $("input[name=dataset]").change(function() {
     var str = this.value;
-    dataselection = str; //.slice(0, 6) + "_" + str.slice(6 , 9)+"E";
+    dataselection = str;
     scselection = $('#disptype input:radio:checked').val();
     queue()
-        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key="+apiKey)
         .await(drawMap);
 });
+
+//state county selection change
 $("input[name=disp]").change(function() {
     dataselection = $('#' + $('#level1dataset input:radio:checked').val() + ' input:radio:checked').val();
     scselection = $('#disptype input:radio:checked').val();
     queue()
-        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key="+apiKey)
         .await(drawMap);
 });
 
+//for scatter plot
+$("#gotoscatter").click(function(){
+    window.location.href = "indexscatter.html";
+});
+
+//ELusive drawMap function begins here
 function drawMap(error, usdata) {
+
+/**********aziz code added for name section*******************************/
 
     //add name values in the top section of the map
     $("#level1dataset input").on('change', function() {
@@ -411,31 +694,43 @@ function drawMap(error, usdata) {
     });
 
     //add name values done.
+/**********aziz code added for name section ends*******************************/
 
     var d = [],
-        d1 = [];
+       d1 = [];
 
     if (scselection == "county") {
+
+      //state / county active toggleClass
         $('#stateLabel').removeClass('btn-primary');
         $('#stateLabel').addClass('btn-default');
         $('#countyLabel').addClass('btn-primary');
         $('#countyLabel').removeClass('btn-default');
+
         usdata.splice(0, 1);
         countyNameObj.length = 0;
         usdata.forEach(function(element) {
             var nameObj = {};
             nameObj[Math.floor(element[1])] = element[0];
+            nameObj.stateID = element[2];
+            nameObj.countyID = element[3];
             countyNameObj.push(nameObj);
             if (element[1] > 0)
                 d.push(parseInt(element[1]));
             if (element[1] > 0)
                 d1.push(parseInt(element[2] + element[3]));
         });
-    } else {
+    }//if close here
+
+//else state is selected
+    else {
+
+      //state/county active toggle
         $('#stateLabel').addClass('btn-primary');
         $('#stateLabel').removeClass('btn-default');
         $('#countyLabel').removeClass('btn-primary');
         $('#countyLabel').addClass('btn-default');
+
         usdata.splice(0, 1);
         stateNameObj.length = 0;
         usdata.forEach(function(element) {
@@ -449,7 +744,7 @@ function drawMap(error, usdata) {
                 d1.push(parseInt(element[2]));
 
         });
-    }
+    } //else close here
 
     var arr = [];
     arr.push(d);
@@ -464,7 +759,6 @@ function drawMap(error, usdata) {
     var projection = d3.geo.albersUsa()
         .scale(750)
         .translate([width / 2.5, height / 3]);
-
 
     var path = d3.geo.path()
         .projection(projection);
@@ -492,7 +786,6 @@ function drawMap(error, usdata) {
 
                 var prop = arr[0][arr[1].indexOf(d.id)];
                 var index = parseFloat([arr[1].indexOf(d.id)]);
-                //if(index!=-1)
                 return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
             });
 
@@ -509,33 +802,295 @@ function drawMap(error, usdata) {
             .data(topojson.feature(us, us.objects.counties).features)
             .enter().append("path")
             .style("fill", function(d) {
-
-                //console.log(arr[0][arr[1].indexOf(d.id)]);
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .attr("d", path)
             .on("mouseover", tip.show)
             .on("mouseleave", tip.hide)
+            /**************************** modal code integration on click************************/
             //aziz integration code 2
             .on('click', function(d) {
+              d3.select('#mainBarChartCounty').selectAll('g').remove();
+              d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
                 var onClickCountyName = [];
                 var prop = arr[0][arr[1].indexOf(d.id)]; //prop returns me the value (i.e population,age,etc)
                 console.log("prop of county", prop);
                 var index = parseFloat([arr[1].indexOf(d.id)]); //index of d.id in arr[1]
                 console.log("index county", index);
-                var countyName = countyNameObjArray[index][prop];
-
+                var countyName = countyNameObj[index][prop];
+                console.log("countyNameObjArray",countyNameObj);
                 //get the selected county Id;
-                var idCounty = countyNameObjArray[index][countyName];
-                console.log("index", countyNameObjArray[index]);
-                console.log("idCounty", idCounty);
-                onClickCountyName.push(countyName);
-                console.log(countyName);
-
+                // var idCounty = countyNameObj[index][countyName];
+                //var idCounty = countyNameObj[index][countyName];
+                for(var name in dictionary){
+                  if(dictionary[name] == dataselection){
+                  $("#modal-title-county").text(countyName+" | "+name+ " - " +prop);
+                  }
+                }
                 //modal code for county - start
-                $("#modal-title-county").text(countyName + " " + dataselection);
                 $("#modal-section-county").modal('show');
+
+                console.log("index", countyNameObj[index]);
+                //console.log("idCounty", idCounty);
+                onClickCountyName.push(countyName);
+                console.log("countyName",countyName);
+/*********************************************************************************
+                age distribution by sex on click modal code
+*********************************************************************************/
+                //for age distribution by sex
+                var ageDistributionObjMaleArray = [];
+                var ageDistributionMaleValues = [];
+                var ageDistributionObjFemaleArray = [];
+                var ageDistributionFemaleValues = [];
+                var objectKeys = Object.keys(ageDistributionObjMale);
+                console.log("objectKeys",objectKeys);
+
+                if(dataselection == "B01001_001E"){
+
+                  for(var attr in ageDistributionObjMale){
+                    queue()
+                      .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + ageDistributionObjMale[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+                      .await(getCountyData);
+                    }
+
+                    for(var attr in ageDistributionObjFemale){
+                      queue()
+                  .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + ageDistributionObjFemale[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID+"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+                        .await(getCountyData2);
+                      }
+                  }
+                      function getCountyData(error,data){
+
+                          var oneObj = {};
+                          oneObj.sex = "Male";
+                          data.splice(0,1);
+                          data.forEach(function(index){
+                            oneObj.population = Math.floor(index[1]);
+                            ageDistributionMaleValues.push(oneObj.population);
+                          });
+
+                          ageDistributionObjMaleArray.push(oneObj);
+
+                            for(var i =0;i<ageDistributionObjMaleArray.length;i++){
+                                var obj = ageDistributionObjMaleArray[i];
+                                obj.ageGroup = objectKeys[i];
+                              }
+
+                            if(ageDistributionObjMaleArray.length == 23){
+                              drawBarChartCounty(ageDistributionObjMaleArray,ageDistributionMaleValues,'#mainBarChartCounty');
+                            }
+                        }//end function getCountyData
+
+
+
+                            function getCountyData2(error,data){
+
+                                var oneObj = {};
+                                oneObj.sex = "Female";
+                                data.splice(0,1);
+                                data.forEach(function(index){
+                                  oneObj.population = Math.floor(index[1]);
+                                  ageDistributionFemaleValues.push(oneObj.population);
+                                });
+
+                                ageDistributionObjFemaleArray.push(oneObj);
+
+                                  for(var i =0;i<ageDistributionObjFemaleArray.length;i++){
+                                      var obj = ageDistributionObjFemaleArray[i];
+                                      obj.ageGroup = objectKeys[i];
+                                    }
+
+                                  if(ageDistributionObjFemaleArray.length == 23){
+                                    drawBarChartCounty(ageDistributionObjFemaleArray,ageDistributionFemaleValues,'#mainBarChartCounty2');
+                                  }
+                              }//end function getCountyData2
+
+/*********************************************************************************
+                  age distribution by sex on click modal code ends
+*********************************************************************************/
+
+/*********************************************************************************
+                  median age distribution on click modal code starts here
+*********************************************************************************/
+
+                            //function drawBarChart begins here
+                            function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId) {
+
+                                //clear contents of old chart
+                                d3.select(svgId).selectAll('g').remove();
+
+                                var svg = d3.select(svgId);
+                                var margin = {
+                                    top: 20,
+                                    right: 100,
+                                    bottom: 100,
+                                    left: 40
+                                };
+                                var width = svg.attr("width") - margin.left - margin.right;
+                                var height = svg.attr("height") - margin.top - margin.bottom;
+                                var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                                var barPadding = 0;
+
+                                var xColumn = "ageGroup";
+                                var yColumn = "population";
+                                var colorColumn = "sex";
+                                var layerColumn = colorColumn;
+
+                                var xScale = d3.scale.ordinal().rangeBands([0, width], barPadding);
+                                var yScale = d3.scale.linear().domain([d3.min(totalPopulationArray),
+                                    d3.max(totalPopulationArray)
+                                ]).range([height, 0]);
+
+                                var colorScale = d3.scale.category10();
+
+                                // add the tooltip area to the webpage
+                                var tooltip = d3.select("body").append("div")
+                                    .attr("class", "tooltip")
+                                    .style("opacity", 0);
+
+                                var xAxis = d3.svg.axis()
+                                    .scale(xScale)
+                                    .orient('bottom')
+                                // .tickValues("transform", "rotate(90)");
+
+                                var yAxis = d3.svg.axis()
+                                    .scale(yScale)
+                                    .orient('left')
+                                    .tickFormat(d3.format('.2s'))
+
+                                var colorLegend = d3.legend.color();
+
+                                colorLegend.scale(colorScale)
+                                    .shapePadding(2)
+                                    .shapeWidth(14)
+                                    .shapeHeight(14)
+                                    .labelOffset(4);
+
+                                var xAxisG = g.append("g")
+                                    .attr('class', 'x axis')
+                                    .attr('transform', 'translate(0,' + height + ')')
+
+                                //.call(xAxis);
+
+                                var yAxisG = g.append("g")
+                                    .attr('class', 'y axis')
+
+                                //.call(yAxis);
+
+                                //appending color lengend
+                                var colorLegendG = g.append("g")
+                                    .attr("class", "color-legend")
+                                    .attr("transform", "translate(725,0)");
+
+                                //adding labels
+                                g.append("g")
+                                    .append("text")
+                                    .attr("transform", "rotate(0)")
+                                    .attr("x", 5)
+                                    .attr("y", -15)
+                                    .attr("dy", ".71em")
+                                    .style("text-anchor", "end")
+                                    .style('font-size', "9px")
+                                    .text("Population");
+
+                                g.append("g")
+                                    .append("text")
+                                    .attr("transform", "rotate(0)")
+                                    .attr("x", 750)
+                                    .attr("y", 180)
+                                    .attr("dx", ".71em")
+                                    .style("text-anchor", "end")
+                                    .style('font-size', "9px")
+                                    .text("Age Group");
+                                //end of adding labels
+
+                                //render function begins
+                                function render(data) {
+                                    var nested = d3.nest()
+                                        .key(function(d) {
+                                            return d[colorColumn]
+                                        })
+                                        .entries(data);
+
+                                    console.log("barchart nested", nested);
+
+                                    var stack = d3.layout.stack()
+                                        .y(function(d) {
+                                            return d[yColumn];
+                                        })
+                                        .values(function(d) {
+                                            return d.values;
+                                        })
+
+                                    var layers = stack(nested);
+
+                                    console.log("layers", layers);
+
+                                    xScale.domain(layers[0].values.map(function(d) {
+                                        return d[xColumn];
+                                    }));
+
+                                    colorScale.domain(layers.map(function(layer) {
+                                        return layer.key;
+                                    }));
+
+                                    xAxisG.call(xAxis).selectAll("text")
+                                        .style("text-anchor", "start")
+                                        .style("font-size", "9px")
+                                        .attr("dx", "0.5em")
+                                        .attr("dy", ".15em")
+                                        .attr("transform", "rotate(65)");
+
+                                    yAxisG.call(yAxis).selectAll('text').style("font-size", "9px");
+
+                                    var layers = g.selectAll(".layer").data(layers);
+                                    layers.enter().append("g").attr("class", "layer");
+                                    layers.exit().remove();
+                                    layers.style("fill", function(d) {
+                                        return colorScale(d.key);
+                                    });
+
+                                    var bars = layers.selectAll("rect").data(function(d) {
+                                        return d.values;
+                                    });
+
+                                    // var barWidth = xScale.rangeBand() / 2 colorScale.domain().length;
+                                    var barWidth = xScale.rangeBand() / 1.5;
+                                    // console.log(colorScale.domain().length);
+                                    bars.enter().append("rect")
+                                    bars.exit().remove();
+                                    bars.attr("x", function(d, i, j) {
+                                            return xScale(d[xColumn]) + barWidth * j;
+                                        })
+                                        .attr("y", function(d) {
+                                            return yScale(d.y);
+                                        })
+                                        .attr("width", barWidth)
+                                        .attr("height", function(d) {
+                                            return height - yScale(d.y);
+                                        })
+                                        .on('mouseover', function(d, i) {
+                                            d3.select(this)
+                                                .style('opacity', .5);
+                                            tooltip.style('opacity', 0.9)
+                                            tooltip.html("(" + d[xColumn] + " , " + d3.format('.2s')(d.y) + ")")
+                                                .style('left', (d3.event.pageX + 5) + "px")
+                                                .style('top', (d3.event.pageY - 28) + "px")
+                                        }).on('mouseout', function(d) {
+                                        d3.select(this)
+                                            .style('opacity', 1)
+                                        tooltip.style('opacity', 0)
+                                    });
+                                    colorLegendG.call(colorLegend);
+                                    totalObjectArray.length = 0;
+                                    totalPopulationArray.length = 0;
+                                } //end of render
+                                render(totalObjectArray);
+                            } //drawBarChart function ends here
+
+
 
             }); //main click function of county ends here.;
 
@@ -574,7 +1129,7 @@ function drawMap(error, usdata) {
                 console.log(prop);
                 var index = parseFloat([arr[1].indexOf(d.id)]);
 
-                console.log(stateNameObj[index][prop]);
+                console.log("stateNameObjArray Data for tooltip",stateNameObj[index][prop]);
 
                 return "<strong>" + stateNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
 
@@ -650,6 +1205,7 @@ function drawMap(error, usdata) {
                         success: function(data) {
                             //count++;
                             // if (levelTwoVariables[count] === arguments[2])
+                            console.log("data splice",data);
                             data.splice(0, 1);
                             var singlestateNameObj = {};
                             singlestateNameObj.name = stateName;
@@ -1258,7 +1814,7 @@ function drawMap(error, usdata) {
 
     }
     pieChart("pie1");
-}
+}//elusive drawMap function ends here.
 
 function pieChart(pienumber) {
     var svg1 = d3.select("#pie1");
