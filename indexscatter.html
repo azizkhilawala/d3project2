@@ -999,6 +999,19 @@
                     return hoverfn.style("visibility", "hidden");
                 });
 */
+        var tip = d3.tip()
+                .attr('class', 'd3-tip')
+                .offset([-10, 0])
+                .html(function(d) {
+
+                    var prop = arr[0][arr[1].indexOf(d.id)];
+                    var index = parseFloat([arr[1].indexOf(d.id)]);
+                    //if(index!=-1)
+                    return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
+                });
+
+
+        svg.call(tip);
         group.selectAll("circle").data(variable.id).enter().append(
                 'circle')
                 .attr("cx", function(d, i) {
@@ -1021,7 +1034,10 @@
                 .on("click",function(d,i){
                     selectedstate = d;
                     drawMap();
-                });
+                })
+                .on("mouseover", tip.show)
+                .on("mouseleave", tip.hide);
+
         var hoverfn = d3.select("body")
                 .append("div")
                 .style("position", "absolute")
@@ -1062,14 +1078,16 @@
     function drawMap(error, usdata) {
 if(usdata == null)
 usdata = one;
-        else
-one = usdata;
+        else {
+    one = usdata;
+    usdata.splice(0, 1);
+}
         var d = [],
                 d1 = [];
 
         if (scselection == "county") {
 
-            usdata.splice(0, 1);
+
             countyNameObj.length = 0;
             usdata.forEach(function(element) {
                 var nameObj = {};
@@ -1081,7 +1099,7 @@ one = usdata;
                     d1.push(parseInt(element[2] + element[3]));
             });
         } else {
-            usdata.splice(0, 1);
+
             stateNameObj.length = 0;
             usdata.forEach(function(element) {
                 var nameObj = {};
