@@ -73,8 +73,8 @@
           <file leaf-file-name="newJs.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/newJs.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.46495727">
-                  <caret line="511" column="0" selection-start-line="345" selection-start-column="0" selection-end-line="511" selection-end-column="0" />
+                <state vertical-scroll-proportion="-3.6615384">
+                  <caret line="75" column="14" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="14" />
                   <folding>
                     <element signature="n#!!block;n#drawEightMaps#0;n#!!block;n#getMapsData#0" expanded="false" />
                     <element signature="n#!!block;n#pieChart#0" expanded="false" />
@@ -270,7 +270,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.098335855" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -464,8 +464,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/newJs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46495727">
-          <caret line="511" column="0" selection-start-line="345" selection-start-column="0" selection-end-line="511" selection-end-column="0" />
+        <state vertical-scroll-proportion="-3.6615384">
+          <caret line="75" column="14" selection-start-line="75" selection-start-column="14" selection-end-line="75" selection-end-column="14" />
           <folding>
             <element signature="n#!!block;n#drawEightMaps#0;n#!!block;n#getMapsData#0" expanded="false" />
             <element signature="n#!!block;n#pieChart#0" expanded="false" />

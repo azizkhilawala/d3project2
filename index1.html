@@ -899,6 +899,11 @@
                 .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
                 .await(drawMap);
     });
+
+    $("#gotoscatter").click(function(){
+        window.location.href = "indexscatter.html";
+    });
+
     function drawMap(error, usdata) {
 
         var d = [],
@@ -1195,7 +1200,7 @@
         if (dataselection.indexOf("B01002_0") == 0) {
 
             if (dataselection.indexOf("001E") != -1){
-                codes=[",B01002_002E","B01002_003E"];
+                codes=["B01002_002E","B01002_003E"];
                 querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
                 for(var i =0;i<codes.length;i++){
                     querystr = querystr + "," + codes[i];
@@ -1369,13 +1374,66 @@
             {
                 if (dataselection.indexOf("008E") != -1) {
                     codes = ["B09021_009E", "B09021_010E", "B09021_011E", "B09021_012E", "B09021_013E", "B09021_014E"];
+                    querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+                    for (var i = 0; i < codes.length; i++) {
+                        querystr = querystr + "," + codes[i];
+                    }
+                    querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+                    queue()
+                            .defer(d3.json, querystr)
+                            .await(function (error, data1) {
+                                var sum = 0;
+                                var data = [];
+                                data1.splice(0, 1);
+                                var labelarray = ["Lives Alone", "Householder Living With Spouse or Spouse of Householder", "Householder Living With Unmarried Partner or Unmarried Partner of Householder", "Child of Householder", "Other Relatives", "Other Nonrelatives"];
+
+                                for (var i = 1; i < codes.length + 1; i++) {
+                                    data1.forEach(function (elem) {
+                                        if (elem[i] != null)
+                                            sum += parseInt(elem[i]);
+                                    });
+                                    data.push({
+                                        label: labelarray[i - 1],
+                                        val: sum,
+                                        code: codes[i - 1]
+                                    });
+                                    sum = 0;
+                                }
+                                drawPieChart("pie1", data)
+                            });
                 }else
                 if (dataselection.indexOf("015E") != -1) {
                     codes = ["B09021_016E", "B09021_017E", "B09021_018E", "B09021_019E", "B09021_020E", "B09021_021E"];
+                    querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+                    for (var i = 0; i < codes.length; i++) {
+                        querystr = querystr + "," + codes[i];
+                    }
+                    querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+                    queue()
+                            .defer(d3.json, querystr)
+                            .await(function (error, data1) {
+                                var sum = 0;
+                                var data = [];
+                                data1.splice(0, 1);
+                                var labelarray = ["Lives Alone", "Householder Living With Spouse or Spouse of Householder", "Householder Living With Unmarried Partner or Unmarried Partner of Householder", "Child of Householder", "Other Relatives", "Other Nonrelatives"];
+
+                                for (var i = 1; i < codes.length + 1; i++) {
+                                    data1.forEach(function (elem) {
+                                        if (elem[i] != null)
+                                            sum += parseInt(elem[i]);
+                                    });
+                                    data.push({
+                                        label: labelarray[i - 1],
+                                        val: sum,
+                                        code: codes[i - 1]
+                                    });
+                                    sum = 0;
+                                }
+                                drawPieChart("pie1", data)
+                            });
                 }else
                 if (dataselection.indexOf("022E") != -1) {
                     codes = ["B09021_023E", "B09021_024E", "B09021_025E", "B09021_026E", "B09021_027E", "B09021_028E"];
-                }
                     querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
                     for (var i = 0; i < codes.length; i++) {
                         querystr = querystr + "," + codes[i];
@@ -1404,7 +1462,7 @@
                                 drawPieChart("pie1", data)
                             });
                 }
-
+            }
         } else
         if (dataselection.indexOf("C05002_0") == 0) {
             if (dataselection.indexOf("001E") != -1) {
@@ -2508,6 +2566,13 @@
                 .on("click",function(d){
                     var str = d.data.code;
                     dataselection = str;//.slice(0, 6) + "_" + str.slice(6 , 9)+"E";
+                    var t = $('#level1dataset input:radio:checked').val();
+                    $("#"+t +" input:radio:checked").attr("checked","false");
+                    $("#"+t +" input:radio:checked").parent().removeClass("active");
+                    $("#"+t +" [value="+dataselection+"]").attr("checked","true");
+                    $("#"+t +" [value="+dataselection+"]").parent().addClass("active");
+
+
                     scselection = $('#disptype input:radio:checked').val() ;
                     queue()
                             .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
