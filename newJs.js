@@ -1079,12 +1079,19 @@ function getRaceCountyData(error,data){
                   race distribution on click modal code ends here
 *********************************************************************************/
 
+/*********************************************************************************
+                  race distribution on click modal code ends here
+*********************************************************************************/
+
+    
+/*********************************************************************************
+                  race distribution on click modal code ends here
+*********************************************************************************/
+
 
                             //function drawBarChart begins here
                             function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
 
-                                // d3.select('#mainBarChartCounty').selectAll('g').remove();
-                                // d3.select('#mainBarChartCounty2').selectAll('g').remove();
                                 //clear contents of old chart
                                 d3.select(svgId).selectAll('g').remove();
 
