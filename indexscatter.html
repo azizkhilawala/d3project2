@@ -953,68 +953,14 @@
         var quantize = d3.scale.linear()
                 .domain([d3.min(variable2.array),maxValuer])
                 .range(["#f7fcfd", "#00441b"]);
-        /*var rScale = d3.scale.linear()
-                .domain([0, maxValuer])
-                .range([2, 15]);*/
 
-        // create a group for the bar chart
-        //d3.select("#label")
-        //        .html(localityName +
-        //                ": Total Primary Energy Production (Quadrillion BTU)"
-        //        );
 
         svg.selectAll('g').remove();
         var group = svg.append("g")
                 .attr("transform", "translate(100, 100)")
                 .call(zoom);
 
-        /*
-                .on("mouseover", function(d, i) {
-                    d3.select("#"+scatterplot).append("rect")
-                            .attr("transform", "translate(100, 50)")
-                            .style("fill", "white")
-                            .style("stroke", "black")
-                            .attr("width", "130")
-                            .attr("height", "30")
-                            .attr({
-                                id: "r" + i, // Create an id for text so we can select it later for removing on mouseout
-                                x: function() {
-                                    return 10;
-                                },
-                                y: function() {
-                                    return 10;
-                                }
-                            });
 
-                    d3.select("#"+scatterplot).append("text")
-                            .attr("transform", "translate(100, 50)")
-                            .attr({
-                                id: "t" + i, // Create an id for text so we can select it later for removing on mouseout
-                                x: function() {
-                                    return 20;
-                                },
-                                y: function() {
-                                    return 20;
-                                }
-                            })
-                            .text(function() {
-                                return d;
-                            });
-                    console.log(d);
-                    return hoverfn.style("visibility", "visible").text(d + ": x=" + variable.array[variable.name.indexOf(d)] +", y="+variable1.array[variable1.name.indexOf(d)]);
-                })
-                .on("mouseout", function(d, i) {
-
-                    d3.select("#t" + i).remove(); // Remove text location
-                    d3.select("#r" + i).remove(); // Remove text location
-                })
-                .on("mousemove", function (d, i) {
-                    return hoverfn.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px").text(d + ": x=" + variable.array[variable.name.indexOf(d)] +", y="+variable1.array[variable1.name.indexOf(d)]);
-                })
-                .on("mouseout", function (d) {
-                    return hoverfn.style("visibility", "hidden");
-                });
-*/
         var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .offset([-10, 0])
@@ -1248,8 +1194,6 @@ usdata = one;
                     .enter().append("path")
                     .attr("d", path)
                     .style("fill", function(d) {
-                        // console.log("data", d);
-                        // console.log("data id", arr[1].indexOf(d.id));
                         return quantize(arr[0][arr[1].indexOf(d.id)]);
                     })
                     .classed("states", "true")
