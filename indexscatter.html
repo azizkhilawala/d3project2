@@ -97,6 +97,10 @@
             height:90%;
             overflow-y: scroll;
         }
+        .view {
+            fill: none;
+            stroke: #000;
+        }
     </style>
 </head>
 <body>
@@ -795,6 +799,7 @@
         </div>
             <div class="row">
             <div class="col-md-6" style="border-style: solid;border-color: black;height: 90vh;">
+                <button class="btn btn-default" id="resetchoropeth">Reset</button>
                 <svg id="choropeth" width="800" height="640">
 
                 </svg>
@@ -808,6 +813,7 @@
             </div>
             </div>
             <div class="col-md-6" style="border-style: solid;border-color: black;height: 90vh;">
+                <button class="btn btn-default" id="resetbutton">Reset</button>
                 <svg id="scatterplot" width="800" height="900">
 
                 </svg>
@@ -925,6 +931,15 @@
                 chartWidth = +svg.attr("width")-200,
                 chartHeight = +svg.attr("height")-200;
 
+        var zoom = d3.behavior.zoom()
+                .scaleExtent([1, 10])
+                .on("zoom", zoomed);
+
+        var drag = d3.behavior.drag()
+                .origin(function(d) { return d; })
+                .on("dragstart", dragstarted)
+                .on("drag", dragged)
+                .on("dragend", dragended);
 
         // create a y scale
         var yScale = d3.scale.linear()
@@ -950,7 +965,8 @@
 
         svg.selectAll('g').remove();
         var group = svg.append("g")
-                .attr("transform", "translate(100, 100)");
+                .attr("transform", "translate(100, 100)")
+                .call(zoom);
 
         /*
                 .on("mouseover", function(d, i) {
@@ -1031,6 +1047,7 @@
                     selectedstate = d;
                     drawMap();
                 })
+                .call(drag)
                 .on("mouseover", tip.show)
                 .on("mouseleave", tip.hide);
 
@@ -1061,6 +1078,29 @@
                 .attr('transform', 'translate(-2,0)')
                 .call(yAxis);
 
+        svg.call(zoom);
+
+        function zoomed() {
+            group.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+
+
+        $("#resetbutton").click(function() {
+            group.attr("transform", "translate(100,100)scale(1)");
+        });
     }
     function drawMap(error, usdata) {
 if(usdata == null)
@@ -1120,18 +1160,18 @@ usdata = one;
                 .projection(projection);
 
         svg.selectAll('g').remove();
+        var group = svg.append("g")
+                .attr("class", "legendLinear")
+                .attr("transform", "translate(0,250)");
 
+        var legendLinear = d3.legend.color()
+                .shapeWidth(30)
+                .orient('vertical')
+                .cells(10)
+                .labelFormat(d3.format('.2s'))
+                .scale(quantize);
         if (scselection == "county") {
-            svg.append("g")
-                    .attr("class", "legendLinear")
-                    .attr("transform", "translate(0,250)");
 
-            var legendLinear = d3.legend.color()
-                    .shapeWidth(30)
-                    .orient('vertical')
-                    .cells(10)
-                    .labelFormat(d3.format('.2s'))
-                    .scale(quantize);
 
 
             var tip = d3.tip()
@@ -1182,17 +1222,6 @@ usdata = one;
         // else for state selection
         else {
 
-            svg.append("g")
-                    .attr("class", "legendLinear")
-                    .attr("transform", "translate(0,250)");
-
-            var legendLinear = d3.legend.color()
-                    .shapeWidth(30)
-                    .orient('vertical')
-                    .cells(10)
-                    .labelFormat(d3.format('.2s'))
-                    .scale(quantize);
-
             /**
              * tooltip code trial
              */
@@ -1240,6 +1269,7 @@ usdata = one;
                     .on("mouseleave", tip.hide);
 
         }
+
         scatter("scatterplot");
     }
 </script>
