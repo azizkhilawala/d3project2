@@ -557,7 +557,7 @@ var svg = d3.select("#choropeth"),
     height = +svg.attr("height");
 
 $(document).ready(function() {
-    //console.log(window.innerWidth,window.innerHeight);
+    
     scselection = $('#disptype input:radio:checked').val();
     $("#addDataSetNameHere").text("Total Population within the locality");
     queue()
