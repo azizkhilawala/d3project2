@@ -275,8 +275,6 @@ var medianAgeBySexObj = {
     "Median Age Female":"B01002_003E"
 }
 
-
-
 var bigObject = {
     "Total population within the locality": "B01003_001E",
     "Age distribution broken down by sex": "B01001_001E",
@@ -720,8 +718,6 @@ function drawMap(error, usdata) {
             var nameObj = {};
             if(element[1] == null){
                 element[1] = 0;
-                //console.log("null value here");
-                //nameObj[Math.floor(element[1])] = element[0];
             }else{
                 nameObj[Math.floor(element[1])] = element[0];
                 nameObj.stateID = element[2];
@@ -1420,32 +1416,55 @@ drawBarChartCounty(intpObjArray,intpValues,'#mainBarChartCounty','ratio','popula
    /*********************************************************************************
     Poverty Level by place of birth click modal code starts here
     *********************************************************************************/
+
+
 if(dataselection == "B06012_001E"){
+
+  var PovertyLevelByPlaceOfBirthObj = {
+
+    "Born in State of Residence":"B06012_005E",
+
+    "In State - Below 100 Percent of the Poverty Level":"B06012_006E",
+    "In State - 100 to 149 Percent of the Poverty Level":"B06012_007E",
+    "In State - At or Above 150 Percent of the Poverty Level":"B06012_008E",
+
+    "Born in Other State in the United States":"B06012_009E",
+
+    "in Other State - Below 100 Percent of the Poverty Level":"B06012_010E",
+    "in Other State - 100 to 149 Percent of the Poverty Level":"B06012_011E",
+    "in Other State - At or Above 150 Percent of the Poverty Level":"B06012_012E",
+
+    "Native - Born Outside the United States":"B06012_013E",
+
+    "Native - Below 100 Percent of the Poverty Level":"B06012_014E",
+    "Native - 100 to 149 Percent of the Poverty Level":"B06012_015E",
+    "Native - At or Above 150 Percent of the Poverty Level":"B06012_016E",
+
+    "Foreign Born":"B06012_017E",
+
+    "Foreign -Below 100 Percent of the Poverty Level":"B06012_018E",
+    "Foreign - 100 to 149 Percent of the Poverty Level":"B06012_019E",
+    "Foreign - At or Above 150 Percent of the Poverty Level":"B06012_020E"
+
+  }
 
 var povObjArray = [];
 var povObjValues = [];
 
-var povInState = {
+var povInStateKeys = Object.keys(PovertyLevelByPlaceOfBirthObj);
 
-  "Below 100 Percent of the Poverty Level":"B06012_006E",
-  "100 to 149 Percent of the Poverty Level":"B06012_007E",
-  "At or Above 150 Percent of the Poverty Level":"B06012_008E"
-
-}
-
-var povInStateKeys = Object.keys(povInState);
-
-for(var attr in povInState){
+for(var attr in PovertyLevelByPlaceOfBirthObj){
   queue()
-    .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + povInState[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+    .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + PovertyLevelByPlaceOfBirthObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
     .await(getPovStateCounty);
 }
 
 }//close if
 
+
 function getPovStateCounty(error,data){
   var obj = {};
-  obj.name = "Born in State of Residence";
+  obj.name = countyNameObj[index][prop];
   data.splice(0,1);
   data.forEach(function(index){
     obj.population = index[1];
@@ -1453,44 +1472,20 @@ function getPovStateCounty(error,data){
   });
   povObjArray.push(obj);
   console.log("povObjArray",povObjArray);
-}
+
 
 for(var i=0;i<povObjArray.length;i++){
     var obj = povObjArray[i];
     obj.level = povInStateKeys[i];
 }
 
-
-
-var PovertyLevelByPlaceOfBirthObj = {
-
-  "Born in State of Residence":"B06012_005E",
-
-  "Below 100 Percent of the Poverty Level":"B06012_006E",
-  "100 to 149 Percent of the Poverty Level":"B06012_007E",
-  "At or Above 150 Percent of the Poverty Level":"B06012_008E",
-
-  "Born in Other State in the United States":"B06012_009E",
-
-  "Below 100 Percent of the Poverty Level":"B06012_010E",
-  "100 to 149 Percent of the Poverty Level":"B06012_011E",
-  "At or Above 150 Percent of the Poverty Level":"B06012_012E",
-
-  "Native; Born Outside the United States":"B06012_013E",
-
-  "Below 100 Percent of the Poverty Level":"B06012_014E",
-  "100 to 149 Percent of the Poverty Level":"B06012_015E",
-  "At or Above 150 Percent of the Poverty Level":"B06012_016E",
-
-  "Foreign Born":"B06012_017E",
-
-  "Below 100 Percent of the Poverty Level":"B06012_018E",
-  "100 to 149 Percent of the Poverty Level":"B06012_019E",
-  "At or Above 150 Percent of the Poverty Level":"B06012_020E"
-
+if(povObjArray.length == povInStateKeys.length){
+  d3.select('#mainBarChartCounty2').selectAll('g').remove();
+  $('#modal-title-county').text(countyNameObj[index][prop] + " | Poverty Level by place of birth");
+drawBarChartCounty(povObjArray,povObjValues,'#mainBarChartCounty','level','population','name','Poverty Level by place of birth','Population');
 }
 
-
+}
 // var povBigObjArray = [];
 //
 // for(var j=0;j<3;j++){
@@ -1538,6 +1533,85 @@ var PovertyLevelByPlaceOfBirthObj = {
     /*********************************************************************************
       Poverty Level by place of birth click modal code ends here
      *********************************************************************************/
+
+     /*********************************************************************************
+      educational attainment by place of birth click modal code starts here
+      *********************************************************************************/
+
+      if(dataselection == 'B06009_001E'){
+
+      var eduObj = {
+
+      "in State - Less than High School Graduate":"B06009_008E",
+      "in State - High School Graduate (Includes Equivalency)":"B06009_009E",
+      "in State - Some College or Associate's Degree":"B06009_010E",
+      "in State - Bachelor's Degree":"B06009_011E",
+      "in State - Graduate or Professional Degree":"B06009_012E",
+
+      "in Other State - Less than High School Graduate":"B06009_014E",
+      "in Other State - High School Graduate (Includes Equivalency)":"B06009_015E",
+      "in Other State - Some College or Associate's Degree":"B06009_016E",
+      "in Other State - Bachelor's Degree":"B06009_017E",
+      "in Other State - Graduate or Professional Degree":"B06009_018E",
+
+
+      "Native - Less than High School Graduate":"B06009_020E",
+      "Native - High School Graduate (Includes Equivalency)":"B06009_021E",
+      "Native - Some College or Associate's Degree":"B06009_022E",
+      "Native - Bachelor's Degree":"B06009_023E",
+      "Native - Graduate or Professional Degree":"B06009_024E",
+
+
+      "Foreign - Less than High School Graduate":"B06009_026E",
+      "Foreign - High School Graduate (Includes Equivalency)":"B06009_027E",
+      "Foreign - Some College or Associate's Degree":"B06009_028E",
+      "Foreign - Bachelor's Degree":"B06009_029E",
+      "Foreign - Graduate or Professional Degree":"B06009_030E"
+}
+
+
+
+var eduObjArray = [];
+var eduObjValues = [];
+
+var eduInStateKeys = Object.keys(eduObj);
+
+for(var attr in eduObj){
+  queue()
+    .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + eduObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+    .await(getEduStateCounty);
+}
+
+}//close if
+
+
+function getEduStateCounty(error,data){
+  var obj = {};
+  obj.name = countyNameObj[index][prop];
+  data.splice(0,1);
+  data.forEach(function(index){
+    obj.population = index[1];
+    eduObjValues.push(obj.population);
+  });
+  eduObjArray.push(obj);
+  //console.log("povObjArray",povObjArray);
+
+
+for(var i=0;i<eduObjArray.length;i++){
+    var obj = eduObjArray[i];
+    obj.level = eduInStateKeys[i];
+}
+
+if(eduObjArray.length == eduInStateKeys.length){
+  d3.select('#mainBarChartCounty2').selectAll('g').remove();
+  $('#modal-title-county').text(countyNameObj[index][prop] + " | Educational Attainment by place of birth");
+drawBarChartCounty(eduObjArray,eduObjValues,'#mainBarChartCounty','level','population','name','Educational Attainment by place of birth','Population');
+}
+
+}
+      /*********************************************************************************
+       educational attainment by place of birth click modal code starts here
+       *********************************************************************************/
 
                 //function drawBarChartCounty begins here
                 function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
