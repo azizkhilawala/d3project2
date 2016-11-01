@@ -1080,19 +1080,9 @@ function drawMap(error, usdata) {
                  race distribution on click modal code ends here
                  *********************************************************************************/
 
-var living2 = {
-
-  "Lives Alone":"B09021_016E",
-  "Householder Living With Spouse or Spouse of Householder":"B09021_017E",
-  "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_018E",
-  "Child of Householder":"B09021_019E",
-  "Other Relatives":"B09021_020E",
-  "Other Nonrelatives":"B09021_021E"
-}
-
 
                 /*********************************************************************************
-                 race distribution on click modal code ends here
+                 living arrangement on click modal code ends here
                  *********************************************************************************/
 
                 if(dataselection === "B09021_001E"){
@@ -1117,24 +1107,20 @@ var living2 = {
 
                     var livingKey1 = Object.keys(living1);
                     var livingKey2 = Object.keys(living2);
-//console.log("race object keys",raceObjectKeys);
-
                     var livingObjArray1 = [];
                     var livingTotalValues1 = [];
                     var livingObjArray2 = [];
-                    var livingTotalValues1 = [];
-
-// console.log(("in race selection"));
+                    var livingTotalValues2 = [];
 
                     for(var attr in livingKey1){
                         queue()
                             .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + livingKey1[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
-                            .await(getRaceCountyData);
+                            .await(getLivingCountyData);
                     }
-                    for(var attr in raceObject2){
+                    for(var attr in livingKey2){
                         queue()
-                            .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + raceObject2[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
-                            .await(getRaceCountyData2);
+                            .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + livingKey2[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+                            .await(getLivingCountyData2);
                     }
                 }
                 function getLivingCountyData(error,data){
@@ -1154,8 +1140,8 @@ var living2 = {
                         obj.livingArrangement = livingKey1[i];
                     }
 
-                    if(livingObjArray1.length === 6){
-                        drawBarChartCounty(livingObjArray1,livingTotalValues1,'#mainBarChartCounty','livingArrangement','population','ageGroup','arrangement','Population');
+                    if(livingObjArray1.length == 6){
+                        drawBarChartCounty(livingObjArray1,livingTotalValues1,'#mainBarChartCounty','livingArrangement','population','ageGroup','Arrangement','Population');
                     }
                 }//end function getRaceCountyData
 
@@ -1168,20 +1154,19 @@ var living2 = {
                     data.forEach(function(index){
                         // if(index[1] == null){}
                         oneObj.population = Math.floor(index[1]);
-                        raceTotalValues2.push(oneObj.population);
+                        livingTotalValues2.push(oneObj.population);
                     });
 
-                    raceObjArray2.push(oneObj);
-                    //console.log(raceObjArray);
-                    for(var i =0;i<raceObjArray2.length;i++){
-                        var obj = raceObjArray2[i];
-                        obj.race = raceObjectKeys2[i];
+                    livingObjArray2.push(oneObj);
+                    for(var i =0;i<livingObjArray2.length;i++){
+                        var obj = livingObjArray2[i];
+                        obj.livingArrangement = livingKey2[i];
                     }
 
-                    if(raceObjArray2.length === 2){
-                        drawBarChartCounty(raceObjArray2,raceTotalValues2,'#mainBarChartCounty2','race','population','name','Races','Population');
+                    if(livingObjArray2.length === 6){
+                        drawBarChartCounty(livingObjArray2,livingTotalValues2,'#mainBarChartCounty2','livingArrangement','population','name','arrangement','Population');
                     }
-                }//end function getRaceCountyData2
+                }//end function getLivingCountyData2
 
                 /*********************************************************************************
                  race distribution on click modal code ends here
