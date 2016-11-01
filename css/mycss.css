@@ -101,6 +101,14 @@
       float: left;
     }
 
+.tagtype{
+  margin: 5px;
+  float:left;
+}
+.tagtype2{
+  margin: 5px;
+  float: left;
+}
 /*************************************************
 below code from other files
 ****************************************************

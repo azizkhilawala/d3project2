@@ -748,6 +748,7 @@ function drawMap(error, usdata) {
         stateNameObj.length = 0;
         usdata.forEach(function(element) {
             var nameObj = {};
+            nameObj.id = element[2];
             nameObj[Math.floor(element[1])] = element[0]; //for age variables
             nameObj[element[2]] = element[0];
             stateNameObj.push(nameObj);
@@ -1664,7 +1665,7 @@ function getLivingCountyData2(error,data){
                 var stateName = stateNameObj[index][prop];
 
                 //get the selected state Id;
-                var idState = stateNameObj[index][stateName];
+                var idState = stateNameObj[index]['id'];
                 console.log("index", stateNameObj[index]);
                 console.log(idState);
                 onClickStateName.push(stateName);
