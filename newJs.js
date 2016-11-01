@@ -1420,14 +1420,110 @@ drawBarChartCounty(intpObjArray,intpValues,'#mainBarChartCounty','ratio','popula
    /*********************************************************************************
     Poverty Level by place of birth click modal code starts here
     *********************************************************************************/
+if(dataselection == "B06012_001E"){
 
-    
+var povInState = {
+
+  "Below 100 Percent of the Poverty Level":"B06012_006E",
+  "100 to 149 Percent of the Poverty Level":"B06012_007E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_008E"
+}
+var povInStateKeys = Object.keys(povInState);
+
+console.log(povInStateKeys);
+
+var PovertyLevelByPlaceOfBirthObj = {
+
+  "Born in State of Residence":"B06012_005E",
+
+  "Below 100 Percent of the Poverty Level":"B06012_006E",
+  "100 to 149 Percent of the Poverty Level":"B06012_007E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_008E",
+
+  "Born in Other State in the United States":"B06012_009E",
+
+  "Below 100 Percent of the Poverty Level":"B06012_010E",
+  "100 to 149 Percent of the Poverty Level":"B06012_011E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_012E",
+
+  "Native; Born Outside the United States":"B06012_013E",
+
+  "Below 100 Percent of the Poverty Level":"B06012_014E",
+  "100 to 149 Percent of the Poverty Level":"B06012_015E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_016E",
+
+  "Foreign Born":"B06012_017E",
+
+  "Below 100 Percent of the Poverty Level":"B06012_018E",
+  "100 to 149 Percent of the Poverty Level":"B06012_019E",
+  "At or Above 150 Percent of the Poverty Level":"B06012_020E"
+
+}
+var povBigObjArray = [];
+
+for(var j=0;j<3;j++){
+
+  var povObj = {};
+
+  povObj.name = "Born in State of Residence";
+
+  // if(j==0){
+  //   povObj.level = "Below 100 Percent of the Poverty Level";
+  // }
+  // if(j==1){
+  //   povObj.level = "100 to 149 Percent of the Poverty Level";
+  // }
+  // if(j==2){
+  //   povObj.level = "100 to 149 Percent of the Poverty Level";
+  // }
+  povObj.level = povInStateKeys[j];
+
+  // console.log("levelName",povObj.level);
+  // console.log("povInState id value",povInState[povObj.level]);
+  // console.log("povObjBeforeque",povObj);
+
+queue()
+  .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + povInState[povObj.level] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+  .await(ready);
+
+function ready(error,data){
+  data.splice(0,1);
+  console.log(data);
+  data.forEach(function(index){
+    povObj.population = index[1];
+    console.log(povObj.population);
+    console.log(povObj);
+  });
+  povBigObjArray.push(povObj);
+}
+
+}//for loop end
+
+}//close if
+
+    // $.ajax({
+    //   url: "http://api.census.gov/data/2015/acs1?get=NAME," + povInState[povObj.level] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey,
+    //   success: function(data){
+    //     data.splice(0,1);
+    //     data.forEach(function(element){
+    //       povObj.population = parseInt(element[1]);
+    //     });
+    //   },
+    //   complete: function(){
+    //       i++;
+    //       povBigObjArray.push(povObj);
+    //
+    //   }
+    // });
+
+
+
 
     /*********************************************************************************
       Poverty Level by place of birth click modal code ends here
      *********************************************************************************/
 
-                //function drawBarChart begins here
+                //function drawBarChartCounty begins here
                 function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
 
                     //clear contents of old chart
@@ -1662,9 +1758,9 @@ function getLivingCountyData2(error,data){
       }
   }//end function getRaceCountyData2
 
-/*********************************************************************************
-                  race distribution on click modal code ends here
-*********************************************************************************/
+// /*********************************************************************************
+//                   race distribution on click modal code ends here
+// *********************************************************************************/
 
 
                             //function drawBarChart begins here
@@ -1847,7 +1943,7 @@ function getLivingCountyData2(error,data){
 
             }); //main click function of county ends here.;
 
-        //to show state borders as well
+      //  to show state borders as well
         svg.append("g")
             .attr("transform", "translate(0,40)")
             .selectAll("path")
