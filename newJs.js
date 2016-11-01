@@ -460,6 +460,12 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     drawEightMaps('#eight-map-7', '#totalCarMap', carTranArr);
     drawEightMaps('#eight-map-8', '#totalPublicMap', publicTranArr);
 
+    for(var i=1;i<=8;i++){
+      for(var attr in biggestObject){
+        $("#eight-map-"+i).append('<option value='+biggestObject[attr]+'>'+ attr +'</option>');
+      }
+    }
+
     function drawEightMaps(mapID, svgId, totalValueArr) {
 
         var outerWidth = 280;

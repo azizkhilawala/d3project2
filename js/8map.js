@@ -468,6 +468,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
 
 
 } //8 maps data function ends here
+
 function drawEightMaps(mapID, svgId, totalValueArr) {
 
     var outerWidth = 280;
