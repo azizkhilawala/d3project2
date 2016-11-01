@@ -720,7 +720,7 @@ function drawMap(error, usdata) {
             var nameObj = {};
             if(element[1] == null){
                 element[1] = 0;
-                console.log("null value here");
+                //console.log("null value here");
                 //nameObj[Math.floor(element[1])] = element[0];
           }else{
             nameObj[Math.floor(element[1])] = element[0];
@@ -797,11 +797,11 @@ function drawMap(error, usdata) {
             .html(function(d) {
 
                 var prop = arr[0][arr[1].indexOf(d.id)];
-                console.log("prop for race",prop);
+                //console.log("prop for race",prop);
                 var index = parseFloat([arr[1].indexOf(d.id)]);
-                console.log("index for race",index);
-                console.log("countyNameObj",countyNameObj[index][prop]);
-                console.log("countyNameObj here",countyNameObj);
+                //console.log("index for race",index);
+                //console.log("countyNameObj",countyNameObj[index][prop]);
+                //console.log("countyNameObj here",countyNameObj);
                 return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
             });
 
@@ -827,16 +827,16 @@ function drawMap(error, usdata) {
             //aziz integration code 2
             .on('click', function(d) {
 
-              d3.select('#mainBarChartCounty').selectAll('g').remove();
-              d3.select('#mainBarChartCounty2').selectAll('g').remove();
+              // d3.select('#mainBarChartCounty').selectAll('g').remove();
+              // d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
                 var onClickCountyName = [];
                 var prop = arr[0][arr[1].indexOf(d.id)]; //prop returns me the value (i.e population,age,etc)
-                console.log("prop of county", prop);
+                //console.log("prop of county", prop);
                 var index = parseFloat([arr[1].indexOf(d.id)]); //index of d.id in arr[1]
-                console.log("index county", index);
+                //console.log("index county", index);
                 var countyName = countyNameObj[index][prop];
-                console.log("countyNameObjArray",countyNameObj);
+                //console.log("countyNameObjArray",countyNameObj);
                 //get the selected county Id;
                 // var idCounty = countyNameObj[index][countyName];
                 //var idCounty = countyNameObj[index][countyName];
@@ -856,17 +856,19 @@ function drawMap(error, usdata) {
                 age distribution by sex on click modal code
 *********************************************************************************/
                 //for age distribution by sex
-                var ageDistributionObjMaleArray = [];
-                var ageDistributionMaleValues = [];
-                var ageDistributionObjFemaleArray = [];
-                var ageDistributionFemaleValues = [];
-                var objectKeys = Object.keys(ageDistributionObjMale);
+
                 //console.log("objectKeys",objectKeys);
 
                 if(dataselection == "B01001_001E"){
 
-                  d3.select('#mainBarChartCounty').selectAll('g').remove();
-                  d3.select('#mainBarChartCounty2').selectAll('g').remove();
+                  var ageDistributionObjMaleArray = [];
+                  var ageDistributionMaleValues = [];
+                  var ageDistributionObjFemaleArray = [];
+                  var ageDistributionFemaleValues = [];
+                  var objectKeys = Object.keys(ageDistributionObjMale);
+
+                  // d3.select('#mainBarChartCounty').selectAll('g').remove();
+                  // d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
                   for(var attr in ageDistributionObjMale){
                     queue()
@@ -931,14 +933,15 @@ function drawMap(error, usdata) {
 /*********************************************************************************
                   median age distribution on click modal code starts here
 *********************************************************************************/
+
+    //console.log(medianObjectKeys);
+  if(dataselection === "B01002_001E"){
+    //
+    // d3.select('#mainBarChartCounty').selectAll('g').remove();
+    // d3.select('#mainBarChartCounty2').selectAll('g').remove();
     var medianAgeTotalObjArray = [];
     var medianAgeTotalValuesArray = [];
     var medianObjectKeys = Object.keys(medianAgeBySexObj);
-    //console.log(medianObjectKeys);
-  if(dataselection = "B01002_001E"){
-
-    d3.select('#mainBarChartCounty').selectAll('g').remove();
-    d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
     for(var attr in medianAgeBySexObj){
       queue()
@@ -969,88 +972,11 @@ function drawMap(error, usdata) {
           }
 
         if(medianAgeTotalObjArray.length == 2){
+          d3.select('#mainBarChartCounty2').selectAll('g').remove();
           drawBarChartCounty(medianAgeTotalObjArray,medianAgeTotalValuesArray,'#mainBarChartCounty','sex','age','name','Sex','Median Age');
         }
     }//end function getCountyData2
-    //make pie chart function begins
-    // function makePieChart(medianAgeObjArray,svgId,'#mainBarChartCounty',) {
-    //     d3.select("#mainPieChart").remove();
-    //     //$('#median-age').show();
-    //
-    //
-    //     var outerWidth = 500;
-    //     var outerHeight = 250;
-    //     var margin = {
-    //         left: 90,
-    //         top: 30,
-    //         right: 30,
-    //         bottom: 30
-    //     };
-    //
-    //     var radiusMax = 80;
-    //     var xColumn = "name";
-    //     var sliceSizeColumn = "age";
-    //     var colorColumn = "sex";
-    //
-    //     var innerWidth = outerWidth - margin.left - margin.right;
-    //     var innerHeight = outerHeight - margin.top - margin.bottom;
-    //     var svg = d3.select("#chart-container").append("svg")
-    //         .attr("width", outerWidth)
-    //         .attr("height", outerHeight)
-    //         .attr("id", "mainPieChart");
-    //     var g = svg.append("g")
-    //         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    //     var xAxisG = g.append("g")
-    //         .attr("class", "x axis")
-    //         .attr("transform", "translate(0," + innerHeight + ")");
-    //     var pieG = g.append("g");
-    //
-    //     var xScale = d3.scale.ordinal().rangePoints([0, innerWidth]);
-    //     var colorScale = d3.scale.category10();
-    //
-    //     var xAxis = d3.svg.axis().scale(xScale).orient("bottom")
-    //         .outerTickSize(0);
-    //
-    //     var pie = d3.layout.pie();
-    //     var arc = d3.svg.arc();
-    //     arc.outerRadius(radiusMax);
-    //     arc.innerRadius(20);
-    //
-    //     function render(data) {
-    //
-    //         xScale.domain(data.map(function(d) {
-    //             return d[xColumn];
-    //         }));
-    //         colorScale.domain(data.map(function(d) {
-    //             console.log("color column", d[colorColumn]);
-    //             return d[colorColumn];
-    //         }));
-    //         pie.value(function(d) {
-    //             console.log("pie csilcei ", d[sliceSizeColumn]);
-    //             var ageValue = d[sliceSizeColumn];
-    //             var mathFun = Math.floor(ageValue);
-    //             return d[sliceSizeColumn];
-    //         });
-    //
-    //         xAxisG.call(xAxis);
-    //
-    //         var pieData = pie(data);
-    //
-    //         pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
-    //
-    //         var slices = pieG.selectAll("path").data(pieData);
-    //         slices.enter().append("path");
-    //         slices.attr("d", arc)
-    //             .attr("fill", function(d) {
-    //                 return colorScale(d.data[colorColumn]);
-    //             }).attr("class", "pathFill");
-    //         slices.exit().remove();
-    //
-    //     }
-    //
-    //     render(medianAgeObjArray);
-    //
-    // } //make pie chart function ends here
+
 
 /*********************************************************************************
                   median age distribution on click modal code ends here
@@ -1059,6 +985,9 @@ function drawMap(error, usdata) {
 /*********************************************************************************
                   race distribution on click modal code starts here
 *********************************************************************************/
+
+if(dataselection === 'B02001_001E'){
+
 
   var raceObject = {
 
@@ -1072,26 +1001,34 @@ function drawMap(error, usdata) {
 
   }
 
+var raceObject2 = {
+  "Two Races Including Some Other Race":"B02001_009E",
+  "Two Races Excluding Some Other Race, and Three or More Races":"B02001_010E"
+}
+
   var raceObjectKeys = Object.keys(raceObject);
-  console.log("race object keys",raceObjectKeys);
+  var raceObjectKeys2 = Object.keys(raceObject2);
+  //console.log("race object keys",raceObjectKeys);
 
   var raceObjArray = [];
   var raceTotalValues = [];
+  var raceObjArray2 = [];
+  var raceTotalValues2 = [];
 
-if(dataselection == 'B02001_001E'){
-
-  d3.select('#mainBarChartCounty').selectAll('g').remove();
-  d3.select('#mainBarChartCounty2').selectAll('g').remove();
-
-  console.log(("in race selection"));
+  // console.log(("in race selection"));
   for(var attr in raceObject){
     queue()
       .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + raceObject[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
       .await(getRaceCountyData);
     }
+    for(var attr in raceObject2){
+      queue()
+        .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + raceObject2[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+        .await(getRaceCountyData2);
+    }
 }
 function getRaceCountyData(error,data){
-  console.log("in getRaceCountyData");
+  // console.log("in getRaceCountyData");
     var oneObj = {};
     // oneObj.sex = "Female";
     oneObj.name = countyNameObj[index][prop];
@@ -1103,16 +1040,40 @@ function getRaceCountyData(error,data){
     });
 
     raceObjArray.push(oneObj);
-console.log(raceObjArray);
+    //console.log(raceObjArray);
       for(var i =0;i<raceObjArray.length;i++){
           var obj = raceObjArray[i];
           obj.race = raceObjectKeys[i];
         }
 
-      if(raceObjArray.length == 7){
+      if(raceObjArray.length === 7){
         drawBarChartCounty(raceObjArray,raceTotalValues,'#mainBarChartCounty','race','population','name','Races','Population');
       }
   }//end function getRaceCountyData
+
+  function getRaceCountyData2(error,data){
+    // console.log("in getRaceCountyData");
+      var oneObj = {};
+      // oneObj.sex = "Female";
+      oneObj.name = countyNameObj[index][prop];
+      data.splice(0,1);
+      data.forEach(function(index){
+        // if(index[1] == null){}
+        oneObj.population = Math.floor(index[1]);
+        raceTotalValues2.push(oneObj.population);
+      });
+
+      raceObjArray2.push(oneObj);
+      //console.log(raceObjArray);
+        for(var i =0;i<raceObjArray2.length;i++){
+            var obj = raceObjArray2[i];
+            obj.race = raceObjectKeys2[i];
+          }
+
+        if(raceObjArray2.length === 2){
+          drawBarChartCounty(raceObjArray2,raceTotalValues2,'#mainBarChartCounty2','race','population','name','Races','Population');
+        }
+    }//end function getRaceCountyData2
 
 /*********************************************************************************
                   race distribution on click modal code ends here
@@ -1122,8 +1083,8 @@ console.log(raceObjArray);
                             //function drawBarChart begins here
                             function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
 
-                                d3.select('#mainBarChartCounty').selectAll('g').remove();
-                                d3.select('#mainBarChartCounty2').selectAll('g').remove();
+                                // d3.select('#mainBarChartCounty').selectAll('g').remove();
+                                // d3.select('#mainBarChartCounty2').selectAll('g').remove();
                                 //clear contents of old chart
                                 d3.select(svgId).selectAll('g').remove();
 
