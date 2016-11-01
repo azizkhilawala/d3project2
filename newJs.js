@@ -1075,9 +1075,21 @@ function drawMap(error, usdata) {
                     }
                 }//end function getRaceCountyData2
 
+
                 /*********************************************************************************
                  race distribution on click modal code ends here
                  *********************************************************************************/
+
+var living2 = {
+
+  "Lives Alone":"B09021_016E",
+  "Householder Living With Spouse or Spouse of Householder":"B09021_017E",
+  "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_018E",
+  "Child of Householder":"B09021_019E",
+  "Other Relatives":"B09021_020E",
+  "Other Nonrelatives":"B09021_021E"
+}
+
 
                 /*********************************************************************************
                  race distribution on click modal code ends here
@@ -1113,6 +1125,7 @@ function drawMap(error, usdata) {
                     var livingTotalValues1 = [];
 
 // console.log(("in race selection"));
+
                     for(var attr in livingKey1){
                         queue()
                             .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + livingKey1[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
@@ -1352,6 +1365,247 @@ function drawMap(error, usdata) {
                     } //end of render
                     render(totalObjectArray);
                 } //drawBarChart function ends here
+
+for(var attr in living1){
+  queue()
+    .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + living1[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+    .await(getLivingCountyData);
+  }
+  for(var attr in living2){
+    queue()
+      .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + living2[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+      .await(getLivingCountyData2);
+  }
+
+function getLivingCountyData(error,data){
+// console.log("in getRaceCountyData");
+  var oneObj = {};
+  // oneObj.sex = "Female";
+  oneObj.ageGroup = "18 to 34 years";
+  data.splice(0,1);
+  data.forEach(function(index){
+    oneObj.population = Math.floor(index[1]);
+    livingTotalValues1.push(oneObj.population);
+  });
+
+  livingObjArray1.push(oneObj);
+    for(var i =0;i<livingObjArray1.length;i++){
+        var obj = livingObjArray1[i];
+        obj.livingArrangement = livingKey1[i];
+      }
+
+    if(livingObjArray1.length === 6){
+      drawBarChartCounty(livingObjArray1,livingTotalValues1,'#mainBarChartCounty','livingArrangement','population','ageGroup','arrangement','Population');
+    }
+}//end function getRaceCountyData
+
+function getLivingCountyData2(error,data){
+  // console.log("in getRaceCountyData");
+    var oneObj = {};
+    // oneObj.sex = "Female";
+    oneObj.ageGroup = "35 to 64 years";
+    data.splice(0,1);
+    data.forEach(function(index){
+      // if(index[1] == null){}
+      oneObj.population = Math.floor(index[1]);
+      livingTotalValues2.push(oneObj.population);
+    });
+
+    livingObjArray2.push(oneObj);
+    //console.log(raceObjArray);
+      for(var i =0;i<livingObjArray2.length;i++){
+          var obj = livingObjArray2[i];
+          obj.livingArrangement = livingKey2[i];
+        }
+
+      if(livingObjArray2.length === 6){
+        drawBarChartCounty(livingObjArray2,livingTotalValues2,'#mainBarChartCounty2','livingArrangement','population','ageGroup','arrangement','Population');
+      }
+  }//end function getRaceCountyData2
+
+/*********************************************************************************
+                  race distribution on click modal code ends here
+*********************************************************************************/
+
+
+                            //function drawBarChart begins here
+                            function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
+
+                                //clear contents of old chart
+                                d3.select(svgId).selectAll('g').remove();
+
+                                var svg = d3.select(svgId);
+                                var margin = {
+                                    top: 20,
+                                    right: 100,
+                                    bottom: 100,
+                                    left: 40
+                                };
+
+                                var width = svg.attr("width") - margin.left - margin.right;
+                                var height = svg.attr("height") - margin.top - margin.bottom;
+
+                                var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                                var barPadding = 0;
+
+                                var xColumn = xCol;
+                                var yColumn = yCol;
+                                var colorColumn = colorCol;
+                                var layerColumn = colorColumn;
+
+                                var xScale = d3.scale.ordinal().rangeBands([0, width], barPadding);
+                                var yScale = d3.scale.linear().domain([d3.min(totalPopulationArray),
+                                    d3.max(totalPopulationArray)
+                                ]).range([height, 0]);
+
+                                var colorScale = d3.scale.category10();
+
+                                // add the tooltip area to the webpage
+                                var tooltip = d3.select("body").append("div")
+                                    .attr("class", "tooltip")
+                                    .style("opacity", 0);
+
+                                var xAxis = d3.svg.axis()
+                                    .scale(xScale)
+                                    .orient('bottom')
+                                // .tickValues("transform", "rotate(90)");
+
+                                var yAxis = d3.svg.axis()
+                                    .scale(yScale)
+                                    .orient('left')
+                                    .tickFormat(d3.format('.2s'))
+
+                                var colorLegend = d3.legend.color();
+
+                                colorLegend.scale(colorScale)
+                                    .shapePadding(2)
+                                    .shapeWidth(14)
+                                    .shapeHeight(14)
+                                    .labelOffset(4);
+
+                                var xAxisG = g.append("g")
+                                    .attr('class', 'x axis')
+                                    .attr('transform', 'translate(0,' + height + ')')
+
+                                //.call(xAxis);
+
+                                var yAxisG = g.append("g")
+                                    .attr('class', 'y axis')
+
+                                //.call(yAxis);
+
+                                //appending color lengend
+                                var colorLegendG = g.append("g")
+                                    .attr("class", "color-legend")
+                                    .attr("transform", "translate(725,0)");
+
+                                //adding labels
+                                g.append("g")
+                                    .append("text")
+                                    .attr("transform", "rotate(0)")
+                                    .attr("x", 5)
+                                    .attr("y", -15)
+                                    .attr("dy", ".71em")
+                                    .style("text-anchor", "end")
+                                    .style('font-size', "9px")
+                                    .text(yLabel);
+
+                                g.append("g")
+                                    .append("text")
+                                    .attr("transform", "rotate(0)")
+                                    .attr("x", 750)
+                                    .attr("y", 180)
+                                    .attr("dx", ".71em")
+                                    .style("text-anchor", "end")
+                                    .style('font-size', "9px")
+                                    .text(xLabel);
+                                //end of adding labels
+
+                                //render function begins
+                                function render(data) {
+                                    var nested = d3.nest()
+                                        .key(function(d) {
+                                            return d[colorColumn]
+                                        })
+                                        .entries(data);
+
+                                    console.log("barchart nested", nested);
+
+                                    var stack = d3.layout.stack()
+                                        .y(function(d) {
+                                            return d[yColumn];
+                                        })
+                                        .values(function(d) {
+                                            return d.values;
+                                        })
+
+                                    var layers = stack(nested);
+
+                                    console.log("layers", layers);
+
+                                    xScale.domain(layers[0].values.map(function(d) {
+                                        return d[xColumn];
+                                    }));
+
+                                    colorScale.domain(layers.map(function(layer) {
+                                        return layer.key;
+                                    }));
+
+                                    xAxisG.call(xAxis).selectAll("text")
+                                        .style("text-anchor", "start")
+                                        .style("font-size", "9px")
+                                        .attr("dx", "0.5em")
+                                        .attr("dy", ".15em")
+                                        .attr("transform", "rotate(65)");
+
+                                    yAxisG.call(yAxis).selectAll('text').style("font-size", "9px");
+
+                                    var layers = g.selectAll(".layer").data(layers);
+                                    layers.enter().append("g").attr("class", "layer");
+                                    layers.exit().remove();
+                                    layers.style("fill", function(d) {
+                                        return colorScale(d.key);
+                                    });
+
+                                    var bars = layers.selectAll("rect").data(function(d) {
+                                        return d.values;
+                                    });
+
+                                    // var barWidth = xScale.rangeBand() / 2 colorScale.domain().length;
+                                    var barWidth = xScale.rangeBand() / 1.5;
+                                    // console.log(colorScale.domain().length);
+                                    bars.enter().append("rect")
+                                    bars.exit().remove();
+                                    bars.attr("x", function(d, i, j) {
+                                            return xScale(d[xColumn]) + barWidth * j;
+                                        })
+                                        .attr("y", function(d) {
+                                            return yScale(d.y);
+                                        })
+                                        .attr("width", barWidth)
+                                        .attr("height", function(d) {
+                                            return height - yScale(d.y);
+                                        })
+                                        .on('mouseover', function(d, i) {
+                                            d3.select(this)
+                                                .style('opacity', .5);
+                                            tooltip.style('opacity', 0.9)
+                                            tooltip.html("(" + d[xColumn] + " , " + d3.format('.2s')(d.y) + ")")
+                                                .style('left', (d3.event.pageX + 5) + "px")
+                                                .style('top', (d3.event.pageY - 28) + "px")
+                                        }).on('mouseout', function(d) {
+                                        d3.select(this)
+                                            .style('opacity', 1)
+                                        tooltip.style('opacity', 0)
+                                    });
+                                    colorLegendG.call(colorLegend);
+                                    totalObjectArray.length = 0;
+                                    totalPopulationArray.length = 0;
+                                } //end of render
+                                render(totalObjectArray);
+                            } //drawBarChart function ends here
+
             }); //main click function of county ends here.;
 
         //to show state borders as well
