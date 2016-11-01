@@ -826,6 +826,7 @@ function drawMap(error, usdata) {
             /**************************** modal code integration on click************************/
             //aziz integration code 2
             .on('click', function(d) {
+
               d3.select('#mainBarChartCounty').selectAll('g').remove();
               d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
@@ -860,9 +861,12 @@ function drawMap(error, usdata) {
                 var ageDistributionObjFemaleArray = [];
                 var ageDistributionFemaleValues = [];
                 var objectKeys = Object.keys(ageDistributionObjMale);
-                console.log("objectKeys",objectKeys);
+                //console.log("objectKeys",objectKeys);
 
                 if(dataselection == "B01001_001E"){
+
+                  d3.select('#mainBarChartCounty').selectAll('g').remove();
+                  d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
                   for(var attr in ageDistributionObjMale){
                     queue()
@@ -930,8 +934,12 @@ function drawMap(error, usdata) {
     var medianAgeTotalObjArray = [];
     var medianAgeTotalValuesArray = [];
     var medianObjectKeys = Object.keys(medianAgeBySexObj);
-    console.log(medianObjectKeys);
+    //console.log(medianObjectKeys);
   if(dataselection = "B01002_001E"){
+
+    d3.select('#mainBarChartCounty').selectAll('g').remove();
+    d3.select('#mainBarChartCounty2').selectAll('g').remove();
+
     for(var attr in medianAgeBySexObj){
       queue()
         .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + medianAgeBySexObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
@@ -940,6 +948,7 @@ function drawMap(error, usdata) {
   }
   function getCountyData3(error,data){
       var oneObj = {};
+      oneObj.name = countyNameObj[index][prop];
       data.splice(0,1);
       data.forEach(function(index){
         oneObj.age = Math.floor(index[1]);
@@ -947,7 +956,7 @@ function drawMap(error, usdata) {
       });
 
       medianAgeTotalObjArray.push(oneObj);
-      console.log(medianAgeTotalObjArray);
+    //  console.log(medianAgeTotalObjArray);
         for(var i=0;i<medianAgeTotalObjArray.length;i++){
             var obj = medianAgeTotalObjArray[i];
             obj.sex = medianObjectKeys[i];
@@ -960,7 +969,7 @@ function drawMap(error, usdata) {
           }
 
         if(medianAgeTotalObjArray.length == 2){
-          // drawBarChartCounty(medianAgeTotalObjArray,medianAgeTotalValuesArray,'#mainBarChartCounty','sex','age','gender','Sex','Median Age');
+          drawBarChartCounty(medianAgeTotalObjArray,medianAgeTotalValuesArray,'#mainBarChartCounty','sex','age','name','Sex','Median Age');
         }
     }//end function getCountyData2
     //make pie chart function begins
@@ -1071,6 +1080,10 @@ function drawMap(error, usdata) {
 
 if(dataselection == 'B02001_001E'){
 
+  d3.select('#mainBarChartCounty').selectAll('g').remove();
+  d3.select('#mainBarChartCounty2').selectAll('g').remove();
+
+  console.log(("in race selection"));
   for(var attr in raceObject){
     queue()
       .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + raceObject[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
@@ -1081,6 +1094,7 @@ function getRaceCountyData(error,data){
   console.log("in getRaceCountyData");
     var oneObj = {};
     // oneObj.sex = "Female";
+    oneObj.name = countyNameObj[index][prop];
     data.splice(0,1);
     data.forEach(function(index){
       // if(index[1] == null){}
@@ -1092,11 +1106,11 @@ function getRaceCountyData(error,data){
 console.log(raceObjArray);
       for(var i =0;i<raceObjArray.length;i++){
           var obj = raceObjArray[i];
-          obj.race = objectKeys[i];
+          obj.race = raceObjectKeys[i];
         }
 
       if(raceObjArray.length == 7){
-        drawBarChartCounty(raceObjArray,raceTotalValues,'#mainBarChartCounty','race','population','race','Races','Population');
+        drawBarChartCounty(raceObjArray,raceTotalValues,'#mainBarChartCounty','race','population','name','Races','Population');
       }
   }//end function getRaceCountyData
 
@@ -1108,6 +1122,8 @@ console.log(raceObjArray);
                             //function drawBarChart begins here
                             function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
 
+                                d3.select('#mainBarChartCounty').selectAll('g').remove();
+                                d3.select('#mainBarChartCounty2').selectAll('g').remove();
                                 //clear contents of old chart
                                 d3.select(svgId).selectAll('g').remove();
 
