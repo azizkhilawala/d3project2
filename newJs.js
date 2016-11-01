@@ -328,7 +328,7 @@ var apiKey = "576299d4bf73993515a4994ffe79fcee7fe72b09";
 
 // for(var eachObj in eightMapObj){
 queue()
-    .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
+    .defer(d3.json, "js/us.json")
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=" + apiKey)
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01002_001E&for=state:*&key=" + apiKey)
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B19013_001E&for=state:*&key=" + apiKey)
@@ -358,7 +358,6 @@ var ptr2 = [];
 
 
 function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, race, native, poverty, carTran, publicTran) {
-
     totalPopulation.splice(0, 1);
     totalPopulation.forEach(function(index) {
         if (index[1] > 0) {
@@ -851,7 +850,7 @@ function drawMap(error, usdata) {
                 console.log("countyName",countyName);
 
                 if( dataselection == "B01003_001E" || "B19013_001E" || "B19301_001E" ){
-                  
+
                 }
 
                 /*********************************************************************************
