@@ -326,6 +326,9 @@ var eightMapObj = {
 
 var apiKey = "576299d4bf73993515a4994ffe79fcee7fe72b09";
 
+
+
+
 // for(var eachObj in eightMapObj){
 queue()
     .defer(d3.json, "js/us.json")
@@ -460,11 +463,42 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     drawEightMaps('#eight-map-7', '#totalCarMap', carTranArr);
     drawEightMaps('#eight-map-8', '#totalPublicMap', publicTranArr);
 
+    //onchange dropdown of 8 maps
     for(var i=1;i<=8;i++){
       for(var attr in biggestObject){
-        $("#eight-map-"+i).append('<option value='+biggestObject[attr]+'>'+ attr +'</option>');
+        $("#eight-mapdrop-"+i).append('<option value='+biggestObject[attr]+'>'+ attr +'</option>');
       }
     }
+    var eight1 = [];
+    var eight2 = [];
+    var eightTotal = [];
+
+    $("#eight-mapdrop-1").on('change', function(){
+      var value = $(this).val();
+      fetchMapData(value);
+      drawEightMaps('#eight-map-1', '#totalPopulationMap', eightTotal);
+    });
+
+    function fetchMapData(val){
+      queue()
+      .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,"+val+"&for=state:*&key=" + apiKey)
+      .await(indyMap);
+    }
+
+    function indyMap(error,data){
+      eight1.length = 0;
+      eight2.length = 0;
+      eightTotal.length = 0;
+      data.splice(0, 1);
+      data.forEach(function(index) {
+          if (index[1] > 0) {
+              eight1.push(parseInt(index[1])); //value
+              eight2.push(parseInt(index[2])); //state id
+          }
+      });
+    }
+    eightTotal.push(eight1);
+    eightTotal.push(eight2);
 
     function drawEightMaps(mapID, svgId, totalValueArr) {
 
