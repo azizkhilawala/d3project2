@@ -1083,7 +1083,7 @@ function drawMap(error, usdata) {
 
 
                 /*********************************************************************************
-                 living arrangement on click modal code ends here
+                 living arrangement on click modal code starts here
                  *********************************************************************************/
 
                 if(dataselection === "B09021_001E"){
@@ -1170,7 +1170,7 @@ function drawMap(error, usdata) {
                 }//end function getLivingCountyData2
 
                 /*********************************************************************************
-                 race distribution on click modal code ends here
+                 livingArrangement on click modal code ends here
                  *********************************************************************************/
 
 
