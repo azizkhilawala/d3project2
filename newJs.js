@@ -748,6 +748,7 @@ function drawMap(error, usdata) {
         stateNameObj.length = 0;
         usdata.forEach(function(element) {
             var nameObj = {};
+            nameObj.id = element[2];
             nameObj[Math.floor(element[1])] = element[0]; //for age variables
             nameObj[element[2]] = element[0];
             stateNameObj.push(nameObj);
@@ -1082,7 +1083,7 @@ function drawMap(error, usdata) {
 
 
                 /*********************************************************************************
-                 living arrangement on click modal code ends here
+                 living arrangement on click modal code starts here
                  *********************************************************************************/
 
                 if(dataselection === "B09021_001E"){
@@ -1169,9 +1170,262 @@ function drawMap(error, usdata) {
                 }//end function getLivingCountyData2
 
                 /*********************************************************************************
-                 race distribution on click modal code ends here
+                 livingArrangement on click modal code ends here
                  *********************************************************************************/
 
+                 /*********************************************************************************
+                  travel time to work on click modal code starts here
+                  *********************************************************************************/
+if(dataselection == 'B08303_001E'){
+console.log('in travle time');
+
+  var travelTimeObj = {
+    "Less than 5 Minutes":"B08303_002E",
+    "5 to 9 Minutes":"B08303_003E",
+    "10 to 14 Minutes":"B08303_004E",
+    "15 to 19 Minutes":"B08303_005E",
+    "20 to 24 Minutes":"B08303_006E",
+    "25 to 29 Minutes":"B08303_007E",
+    "30 to 34 Minutes":"B08303_008E",
+    "35 to 39 Minutes":"B08303_009E",
+    "40 to 44 Minutes":"B08303_010E",
+    "45 to 59 Minutes":"B08303_011E",
+    "60 to 89 Minutes":"B08303_012E",
+    "90 or More Minutes":"B08303_013E"
+  }
+
+var travelTimeKeys = Object.keys(travelTimeObj);
+var travelTimeObjArray = [];
+var travelTimeValues = [];
+
+for(var attr in travelTimeObj){
+    queue()
+        .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + travelTimeObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+        .await(getTravelTimeCountyData);
+}
+}//close if
+
+function getTravelTimeCountyData(error,data){
+
+    var oneObj = {};
+    oneObj.name = countyNameObj[index][prop];
+    data.splice(0,1);
+    data.forEach(function(index){
+        oneObj.population = Math.floor(index[1]);
+        travelTimeValues.push(oneObj.population);
+    });
+
+    travelTimeObjArray.push(oneObj);
+
+    for(var i =0;i<travelTimeObjArray.length;i++){
+        var obj = travelTimeObjArray[i];
+        obj.travelTime = travelTimeKeys[i];
+    }
+
+    if(travelTimeObjArray.length == 12){
+      d3.select('#mainBarChartCounty2').selectAll('g').remove();
+      $('#modal-title-county').text(countyNameObj[index][prop] + " | Travel Time to Work");
+    drawBarChartCounty(travelTimeObjArray,travelTimeValues,'#mainBarChartCounty','travelTime','population','name','Travel Time','Population');
+    }
+
+}//end function getTravelTimeCountyData
+
+                  /*********************************************************************************
+                   means of transportation to work on click modal code starts here
+                   *********************************************************************************/
+if(dataselection == 'B08301_001E'){
+console.log("in means of transport");
+
+  var meansOfTransport = {
+
+     "Car, Truck, or Van":"B08301_002E",
+     "Drove Alone":"B08301_003E",
+     "Carpooled":"B08301_004E",
+     "In 2-Person Carpool":"B08301_005E",
+     "In 3-Person Carpool":"B08301_006E",
+     "In 4-Person Carpool":"B08301_007E",
+     "In 5- or 6-Person Carpool":"B08301_008E",
+     "In 7-or-More-Person Carpool":"B08301_009E",
+     "Public Transportation (Excluding Taxicab)":"B08301_010E",
+     "Bus or Trolley Bus":"B08301_011E",
+     "Streetcar or Trolley Car (Carro Publico in Puerto Rico)":"B08301_012E",
+     "Subway or Elevated":"B08301_013E",
+     "Railroad":"B08301_014E",
+     "Ferryboat":"B08301_015E",
+     "Taxicab":"B08301_016E",
+     "Motorcycle":"B08301_017E",
+     "Bicycle":"B08301_018E",
+     "Walked":"B08301_019E",
+     "Other Means":"B08301_020E",
+     "Worked at Home":"B08301_021E"
+
+  }
+
+  var transportKeys = Object.keys(meansOfTransport);
+  var transportObjArray = [];
+  var transportValues = [];
+
+  for(var attr in meansOfTransport){
+      queue()
+          .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + meansOfTransport[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+          .await(getTransportCountyData);
+  }
+
+}//close if
+
+function getTransportCountyData(error,data){
+  var oneObj = {};
+  oneObj.name = countyNameObj[index][prop];
+  data.splice(0,1);
+  data.forEach(function(index){
+      oneObj.population = Math.floor(index[1]);
+      transportValues.push(oneObj.population);
+  });
+
+  transportObjArray.push(oneObj);
+
+  for(var i =0;i<transportObjArray.length;i++){
+      var obj = transportObjArray[i];
+      obj.transportType = transportKeys[i];
+  }
+
+  if(transportObjArray.length == 20){
+    d3.select('#mainBarChartCounty2').selectAll('g').remove();
+    $('#modal-title-county').text(countyNameObj[index][prop] + " | Means of Transport to Work");
+  drawBarChartCounty(transportObjArray,transportValues,'#mainBarChartCounty','transportType','population','name','Means of Transportation','Population');
+  }
+}
+                   /*********************************************************************************
+                    means of transportationon click modal code ends here
+                    *********************************************************************************/
+
+                    /*********************************************************************************
+                     income to poverty level click modal code starts here
+                     *********************************************************************************/
+
+if(dataselection == "B17002_001E"){
+
+var incomeToPovertyObj = {
+
+  "Under .50":"B17002_002E",
+  ".50 to .74":"B17002_003E",
+  ".75 to .99":"B17002_004E",
+  "1.00 to 1.24":"B17002_005E",
+  "1.25 to 1.49":"B17002_006E",
+  "1.50 to 1.74":"B17002_007E",
+  "1.75 to 1.84":"B17002_008E",
+  "1.85 to 1.99":"B17002_009E",
+  "2.00 to 2.99":"B17002_010E",
+  "3.00 to 3.99":"B17002_011E",
+  "4.00 to 4.99":"B17002_012E",
+  "5.00 and over":"B17002_013E"
+
+}
+
+var intpKeys = Object.keys(incomeToPovertyObj);
+var intpObjArray = [];
+var intpValues = [];
+
+for(var attr in incomeToPovertyObj){
+    queue()
+        .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + incomeToPovertyObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+        .await(getIntpCountyData);
+}
+
+}//close if
+
+function getIntpCountyData(error,data){
+var oneObj = {};
+oneObj.name = countyNameObj[index][prop];
+data.splice(0,1);
+data.forEach(function(index){
+    oneObj.population = Math.floor(index[1]);
+    intpValues.push(oneObj.population);
+});
+
+intpObjArray.push(oneObj);
+
+for(var i =0;i<intpObjArray.length;i++){
+    var obj = intpObjArray[i];
+    obj.ratio = intpKeys[i];
+}
+
+if(intpObjArray.length == intpKeys.length){
+  d3.select('#mainBarChartCounty2').selectAll('g').remove();
+  $('#modal-title-county').text(countyNameObj[index][prop] + " | Income to poverty level ratio");
+drawBarChartCounty(intpObjArray,intpValues,'#mainBarChartCounty','ratio','population','name','Income to poverty level ratio','Population');
+}
+}
+/*********************************************************************************
+ income to poverty level click modal code ends here
+ *********************************************************************************/
+
+ /*********************************************************************************
+  Place of birth by nativity click modal code starts here
+  *********************************************************************************/
+
+  if(dataselection == "C05002_001E"){
+
+  var placeOfBirthObj = {
+
+    "Native":"C05002_002E",
+    "Born in State of Residence":"C05002_003E",
+    "Born in Other State in the United States":"C05002_004E",
+    "Born Outside the United States":"C05002_005E",
+    "Puerto Rico":"C05002_006E",
+    "U.s. Island Areas or Born Abroad of American Parent(S)":"C05002_007E",
+    "Foreign Born":"C05002_008E"
+
+  }
+
+  var pobKeys = Object.keys(placeOfBirthObj);
+  var pobObjArray = [];
+  var pobValues = [];
+
+  for(var attr in placeOfBirthObj){
+      queue()
+          .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + placeOfBirthObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+          .await(getpobCountyData);
+  }
+
+  }//close if
+
+  function getpobCountyData(error,data){
+  var oneObj = {};
+  oneObj.name = countyNameObj[index][prop];
+  data.splice(0,1);
+  data.forEach(function(index){
+      oneObj.population = Math.floor(index[1]);
+      pobValues.push(oneObj.population);
+  });
+
+  pobObjArray.push(oneObj);
+
+  for(var i =0;i<pobObjArray.length;i++){
+      var obj = pobObjArray[i];
+      obj.pob = pobKeys[i];
+  }
+
+  if(pobObjArray.length == pobKeys.length){
+    d3.select('#mainBarChartCounty2').selectAll('g').remove();
+    $('#modal-title-county').text(countyNameObj[index][prop] + " | Place of Birth by Nativity");
+  drawBarChartCounty(pobObjArray,pobValues,'#mainBarChartCounty','pob','population','name','Place of Birth by Nativity','Population');
+  }
+  }
+
+  /*********************************************************************************
+   Place of birth by nativity click modal code ends here
+   *********************************************************************************/
+
+   /*********************************************************************************
+    Poverty Level by place of birth click modal code starts here
+    *********************************************************************************/
+
+    
+
+    /*********************************************************************************
+      Poverty Level by place of birth click modal code ends here
+     *********************************************************************************/
 
                 //function drawBarChart begins here
                 function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
@@ -1664,7 +1918,7 @@ function getLivingCountyData2(error,data){
                 var stateName = stateNameObj[index][prop];
 
                 //get the selected state Id;
-                var idState = stateNameObj[index][stateName];
+                var idState = stateNameObj[index]['id'];
                 console.log("index", stateNameObj[index]);
                 console.log(idState);
                 onClickStateName.push(stateName);
