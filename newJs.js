@@ -557,7 +557,7 @@ var svg = d3.select("#choropeth"),
     height = +svg.attr("height");
 
 $(document).ready(function() {
-    
+
     scselection = $('#disptype input:radio:checked').val();
     $("#addDataSetNameHere").text("Total Population within the locality");
     queue()
@@ -849,6 +849,11 @@ function drawMap(error, usdata) {
                 //console.log("idCounty", idCounty);
                 onClickCountyName.push(countyName);
                 console.log("countyName",countyName);
+
+                if( dataselection == "B01003_001E" || "B19013_001E" || "B19301_001E" ){
+                  
+                }
+
                 /*********************************************************************************
                  age distribution by sex on click modal code
                  *********************************************************************************/
