@@ -1994,6 +1994,9 @@ function pieChart(pienumber) {
     var svg1 = d3.select("#pie1");
     var svg2 = d3.select("#pie2");
     var svg3 = d3.select("#pie3");
+    var svg1 = d3.select("#pie1");
+    var svg2 = d3.select("#pie2");
+    var svg3 = d3.select("#pie3");
 
     if (dataselection.indexOf("B01003_0") == 0) {
         val = "B01003_001E";
@@ -2101,30 +2104,7 @@ function pieChart(pienumber) {
                     svg3.selectAll('g').remove();
                     drawPieChart("pie2", data)
                 });
-            /*queue()
-             .defer(d3.json, "
-             http://api.census.gov/data/2015/acs1?get=NAME,B01001_027E,B01001_028E,B01001_029E,B01001_030E,B01001_031E,B01001_032E,B01001_033E,B01001_034E,B01001_035E,B01001_036E,B01001_037E,B01001_038E,B01001_039E,B01001_040E,B01001_041E,B01001_042E,B01001_043E,B01001_044E,B01001_045E,B01001_046E,B01001_047E,B01001_048E,B01001_049E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-             http://api.census.gov/data/2015/acs1?get=NAME,B01001_027E,B01001_028E,B01001_029E,B01001_030E,B01001_031E,B01001_032E,B01001_033E,B01001_034E,B01001_035E,B01001_036E,B01001_037E,B01001_038E,B01001_039E,B01001_040E,B01001_041E,B01001_042E,B01001_043E,B01001_044E,B01001_045E,B01001_046E,B01001_047E,B01001_048E,B01001_049E&for=state:*&key=              576299d4Bf73993515a4994ffe79fcee7fe72B09"
-             .await(function (error, data1) {
-             var sum = 0;
-             var data = [];
-             var labelarray = ["Under 5 Years", "5 to 9 Years", "10 to 14 Years", "15 to 17 Years", "18 and 19 Years", "20 Years", "21 Years", "22 to 24 Years", "25 to 29 Years", "30 to 34 Years", "35 to 39 Years", "40 to 44 Years", "45 to 49 Years", "50 to 54 Years", "55 to 59 Years", "60 and 61 Years", "62 to 64 Years", "65 and 66 Years", "67 to 69 Years", "70 to 74 Years", "75 to 79 Years", "80 to 84 Years", "85 Years and over"];
-             data1.splice(0, 1);
-             for(var i = 1;i<22;i++) {
-             data1.forEach(function (elem) {
-             if (elem[i] != null)
-             sum += parseInt(elem[i]);
-             });
-             data.push({
-             label:labelarray[i-1],
-             val: sum
-             });
-             sum = 0;
-             }
 
-             drawPieChart(pienumber, data)
-             });
-             */
         }
     } else
     if (dataselection.indexOf("B01002_0") == 0) {
@@ -2436,10 +2416,48 @@ function pieChart(pienumber) {
         svg1.selectAll('g').remove();
         svg2.selectAll('g').remove();
         svg3.selectAll('g').remove();
+    } else
+    if (dataselection.indexOf("B19301_0") == 0) {
+        svg1.selectAll('g').remove();
+        svg2.selectAll('g').remove();
+        svg3.selectAll('g').remove();
+        val = "B19301_001E";
+    } else
+    if (dataselection.indexOf("B17002_0") == 0) {
+        if (dataselection.indexOf("001E") != -1) {
 
-
+            codes = ["B17002_002E", "B17002_003E", "B17002_004E", "B17002_005E", "B17002_006E", "B17002_007E", "B17002_008E", "B17002_009E", "B17002_010E", "B17002_011E", "B17002_012E", "B17002_013E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Under .50", ".50 to .74", ".75 to .99", "1.00 to 1.24", "1.25 to 1.49", "1.50 to 1.74", "1.75 to 1.84", "1.85 to 1.99", "2.00 to 2.99", "3.00 to 3.99", "4.00 to 4.99", "5.00 and over"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+                svg1.selectAll('g').remove();
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie1", data)
+            });
+    }
 } else
-
 if (dataselection.indexOf("B06012_0") == 0) {
     if (dataselection.indexOf("001E") != -1) {
         codesfor3 = ["B06012_002E", "B06012_003E", "B06012_004E"];
