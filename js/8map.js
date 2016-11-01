@@ -466,84 +466,84 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     drawEightMaps('#eight-map-7', '#totalCarMap', carTranArr);
     drawEightMaps('#eight-map-8', '#totalPublicMap', publicTranArr);
 
-    function drawEightMaps(mapID, svgId, totalValueArr) {
-
-        var outerWidth = 280;
-        var outerHeight = 350;
-        var margin = {
-            left: 20,
-            top: 20,
-            right: 20,
-            bottom: 20
-        };
-
-        var innerWidth = outerWidth - margin.left - margin.right;
-        var innerHeight = outerHeight - margin.top - margin.bottom;
-        var svg = d3.select(mapID).append("svg")
-            .attr("width", outerWidth)
-            .attr("height", outerHeight)
-            .attr("id",svgId);
-
-        var g = svg.append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        //linear scale for linear gradient from color1 to color2
-        var quantize = d3.scale.linear()
-            .domain([d3.min(totalValueArr[0]), d3.max(totalValueArr[0])])
-            .range(["#f7fcfd", "#00441b"]);
-
-        var projection = d3.geo.albersUsa()
-            .scale(300)
-            .translate([innerWidth / 2, innerHeight / 2]);
-
-        var path = d3.geo.path()
-            .projection(projection);
-
-        svg.append("g")
-            .attr("class", "legendLinear")
-            .attr("transform", "translate(50,290)");
-
-        var legendLinear = d3.legend.color()
-            .shapeWidth(30)
-            .orient('horizontal')
-            .cells(5)
-            .labelFormat(d3.format('.2s'))
-            .scale(quantize);
-
-        /**
-         * tooltip code trial
-         */
-        var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) {
-
-                var prop = totalValueArr[0][totalValueArr[1].indexOf(d.id)];
-
-                var index = parseFloat([totalValueArr[1].indexOf(d.id)]);
-
-                return  + "<span>" + d3.format('.2s')(prop) + "<span>";
-
-            });
-        /**
-         * tooltip code ends
-         */
-
-        svg.call(tip);
-        svg.select(".legendLinear")
-            .call(legendLinear);
-
-        //to show state borders only
-        svg.append("g")
-            .selectAll("path")
-            .data(topojson.feature(usjson, usjson.objects.states).features)
-            .enter().append("path")
-            .attr("d", path)
-            .style("fill", function(d) {
-                return quantize(totalValueArr[0][totalValueArr[1].indexOf(d.id)]);
-            }).classed("states", "true")
-            .on("mouseover", tip.show)
-            .on("mouseleave", tip.hide);
-    } //function end here
 
 } //8 maps data function ends here
+function drawEightMaps(mapID, svgId, totalValueArr) {
+
+    var outerWidth = 280;
+    var outerHeight = 350;
+    var margin = {
+        left: 20,
+        top: 20,
+        right: 20,
+        bottom: 20
+    };
+
+    var innerWidth = outerWidth - margin.left - margin.right;
+    var innerHeight = outerHeight - margin.top - margin.bottom;
+    var svg = d3.select(mapID).append("svg")
+        .attr("width", outerWidth)
+        .attr("height", outerHeight)
+        .attr("id",svgId);
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    //linear scale for linear gradient from color1 to color2
+    var quantize = d3.scale.linear()
+        .domain([d3.min(totalValueArr[0]), d3.max(totalValueArr[0])])
+        .range(["#f7fcfd", "#00441b"]);
+
+    var projection = d3.geo.albersUsa()
+        .scale(300)
+        .translate([innerWidth / 2, innerHeight / 2]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    svg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(50,290)");
+
+    var legendLinear = d3.legend.color()
+        .shapeWidth(30)
+        .orient('horizontal')
+        .cells(5)
+        .labelFormat(d3.format('.2s'))
+        .scale(quantize);
+
+    /**
+     * tooltip code trial
+     */
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+
+            var prop = totalValueArr[0][totalValueArr[1].indexOf(d.id)];
+
+            var index = parseFloat([totalValueArr[1].indexOf(d.id)]);
+
+            return  + "<span>" + d3.format('.2s')(prop) + "<span>";
+
+        });
+    /**
+     * tooltip code ends
+     */
+
+    svg.call(tip);
+    svg.select(".legendLinear")
+        .call(legendLinear);
+
+    //to show state borders only
+    svg.append("g")
+        .selectAll("path")
+        .data(topojson.feature(usjson, usjson.objects.states).features)
+        .enter().append("path")
+        .attr("d", path)
+        .style("fill", function(d) {
+            return quantize(totalValueArr[0][totalValueArr[1].indexOf(d.id)]);
+        }).classed("states", "true")
+        .on("mouseover", tip.show)
+        .on("mouseleave", tip.hide);
+} //function end here

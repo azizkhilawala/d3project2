@@ -3357,6 +3357,15 @@ function drawPieChart(pienumber, data1) {
     var svg1 = d3.select("#" + pienumber);
     svg1.selectAll('g').remove();
 
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+            return "<strong>" + d.data.label + " : </strong> <span>" + d3.format('.2s')(d.data.val) + "<span>";
+        });
+
+
+    svg.call(tip);
     var piegroup = svg1.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -3382,7 +3391,9 @@ function drawPieChart(pienumber, data1) {
             queue()
                 .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
                 .await(drawMap);
-        });
+        })
+        .on("mouseover", tip.show)
+        .on("mouseleave", tip.hide);
     /*working
      var g = piegroup.selectAll(".arc")
      .data(pie(data1))

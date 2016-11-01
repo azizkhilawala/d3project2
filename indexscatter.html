@@ -1002,12 +1002,8 @@
         var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .offset([-10, 0])
-                .html(function(d) {
-
-                    var prop = arr[0][arr[1].indexOf(d.id)];
-                    var index = parseFloat([arr[1].indexOf(d.id)]);
-                    //if(index!=-1)
-                    return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
+                .html(function(d,i) {
+                    return "<strong>" + variable.name[i] + " : </strong><div> + + </div>";
                 });
 
 
@@ -1038,17 +1034,8 @@
                 .on("mouseover", tip.show)
                 .on("mouseleave", tip.hide);
 
-        var hoverfn = d3.select("body")
-                .append("div")
-                .style("position", "absolute")
-                .style("color", "white")
-                .style("font-family", "'Open Sans', sans-serif")
-                .style("font-size", "12px")
-                .style("z-index", "10")
-                .style("background-color", "gray")
-                .style("border", "solid")
-                .style("border-width", "0.5px")
-                .style("visibility", "hidden");
+
+
 
         var xAxis = d3.svg.axis()
                 .scale(xScale)
