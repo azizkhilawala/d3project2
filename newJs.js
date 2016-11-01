@@ -1460,6 +1460,8 @@ for(var i=0;i<povObjArray.length;i++){
     obj.level = povInStateKeys[i];
 }
 
+
+
 var PovertyLevelByPlaceOfBirthObj = {
 
   "Born in State of Residence":"B06012_005E",
