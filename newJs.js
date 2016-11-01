@@ -1095,6 +1095,7 @@ var living1 = {
 }
 
 var living2 = {
+
   "Lives Alone":"B09021_016E",
   "Householder Living With Spouse or Spouse of Householder":"B09021_017E",
   "Householder Living With Unmarried Partner or Unmarried Partner of Householder":"B09021_018E",
@@ -1113,15 +1114,15 @@ var livingObjArray2 = [];
 var livingTotalValues1 = [];
 
 // console.log(("in race selection"));
-for(var attr in livingKey1){
+for(var attr in living1){
   queue()
-    .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + livingKey1[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
-    .await(getRaceCountyData);
+    .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + living1[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+    .await(getLivingCountyData);
   }
-  for(var attr in raceObject2){
+  for(var attr in living2){
     queue()
-      .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + raceObject2[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
-      .await(getRaceCountyData2);
+      .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + living2[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+      .await(getLivingCountyData2);
   }
 }
 function getLivingCountyData(error,data){
@@ -1155,18 +1156,18 @@ function getLivingCountyData2(error,data){
     data.forEach(function(index){
       // if(index[1] == null){}
       oneObj.population = Math.floor(index[1]);
-      raceTotalValues2.push(oneObj.population);
+      livingTotalValues2.push(oneObj.population);
     });
 
-    raceObjArray2.push(oneObj);
+    livingObjArray2.push(oneObj);
     //console.log(raceObjArray);
-      for(var i =0;i<raceObjArray2.length;i++){
-          var obj = raceObjArray2[i];
-          obj.race = raceObjectKeys2[i];
+      for(var i =0;i<livingObjArray2.length;i++){
+          var obj = livingObjArray2[i];
+          obj.livingArrangement = livingKey2[i];
         }
 
-      if(raceObjArray2.length === 2){
-        drawBarChartCounty(raceObjArray2,raceTotalValues2,'#mainBarChartCounty2','race','population','name','Races','Population');
+      if(livingObjArray2.length === 6){
+        drawBarChartCounty(livingObjArray2,livingTotalValues2,'#mainBarChartCounty2','livingArrangement','population','ageGroup','arrangement','Population');
       }
   }//end function getRaceCountyData2
 
