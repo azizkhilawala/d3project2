@@ -1080,8 +1080,9 @@ function getRaceCountyData(error,data){
 *********************************************************************************/
 
 /*********************************************************************************
-                  living arrangement on click modal code ends here
+                  race distribution on click modal code ends here
 *********************************************************************************/
+
 if(dataselection === "B09021_001E"){
 
 var living1 = {
@@ -1169,9 +1170,8 @@ function getLivingCountyData2(error,data){
       }
   }//end function getRaceCountyData2
 
-
 /*********************************************************************************
-                  living arrangement on click modal code ends here
+                  race distribution on click modal code ends here
 *********************************************************************************/
 
 
@@ -2083,6 +2083,9 @@ function pieChart(pienumber) {
 
     if (dataselection.indexOf("B01003_0") == 0) {
         val = "B01003_001E";
+        svg1.selectAll('g').remove();
+        svg2.selectAll('g').remove();
+        svg3.selectAll('g').remove();
     } else
     if (dataselection.indexOf("B01001_0") == 0) {
         //val = "B01001_001E";
@@ -2516,7 +2519,6 @@ function pieChart(pienumber) {
     } else
     if (dataselection.indexOf("B19013_0") == 0) {
         val = "B19013_001E";
-<<<<<<< HEAD
         svg1.selectAll('g').remove();
         svg2.selectAll('g').remove();
         svg3.selectAll('g').remove();
@@ -2561,7 +2563,17 @@ function pieChart(pienumber) {
                 drawPieChart("pie1", data)
             });
     }
-} else
+}
+else
+{
+        svg1.selectAll('g').remove();
+        svg2.selectAll('g').remove();
+        svg3.selectAll('g').remove();
+
+
+}
+
+
 if (dataselection.indexOf("B06012_0") == 0) {
     if (dataselection.indexOf("001E") != -1) {
         codesfor3 = ["B06012_002E", "B06012_003E", "B06012_004E"];
@@ -2619,6 +2631,7 @@ if (dataselection.indexOf("B06012_0") == 0) {
                 drawPieChart("pie1", data2)
                 drawPieChart("pie2", data3)
             });
+
     } else
     if (dataselection.indexOf("005E") != -1) {
         codes = ["B06012_006E", "B06012_007E", "B06012_008E"];
@@ -2808,589 +2821,495 @@ if (dataselection.indexOf("B06009_0") == 0) {
                 drawPieChart("pie2", data3)
             });
 
-=======
->>>>>>> parent of 4e371ef... Merge remote-tracking branch 'origin/master'
+// =======
+// >>>>>>> parent of 4e371ef... Merge remote-tracking branch 'origin/master'
+// =======
+// >>>>>>> parent of 87c7e23... commit
     } else
-    if (dataselection.indexOf("B19301_0") == 0) {
-        val = "B19301_001E";
-    } else
-    if (dataselection.indexOf("B17002_0") == 0) {
-        if (dataselection.indexOf("001E") != -1) {
-
-            codes = ["B17002_002E", "B17002_003E", "B17002_004E", "B17002_005E", "B17002_006E", "B17002_007E", "B17002_008E", "B17002_009E", "B17002_010E", "B17002_011E", "B17002_012E", "B17002_013E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Under .50", ".50 to .74", ".75 to .99", "1.00 to 1.24", "1.25 to 1.49", "1.50 to 1.74", "1.75 to 1.84", "1.85 to 1.99", "2.00 to 2.99", "3.00 to 3.99", "4.00 to 4.99", "5.00 and over"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-                    svg1.selectAll('g').remove();
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie1", data)
-                });
+    if (dataselection.indexOf("005E") != -1) {
+        codes = ["B06012_006E", "B06012_007E", "B06012_008E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
         }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
     } else
-    if (dataselection.indexOf("B06012_0") == 0) {
-        if (dataselection.indexOf("001E") != -1) {
-            codesfor3 = ["B06012_002E", "B06012_003E", "B06012_004E"];
-            codesfor2 = ["B06012_005E", "B06012_009E", "B06012_013E", "B06012_017E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codesfor3.length; i++) {
-                querystr = querystr + "," + codesfor3[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            querystr1 = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codesfor2.length; i++) {
-                querystr1 = querystr1 + "," + codesfor2[i];
-            }
-            querystr1 = querystr1 + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .defer(d3.json, querystr1)
-                .await(function(error, data1, data11) {
-                    var sum = 0;
-                    var data3 = [];
-                    var data2 = [];
-                    data1.splice(0, 1);
-                    data11.splice(0, 1);
-
-                    var labelarray3 = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    var labelarray2 = ["Born in State of Residence", "Born in Other State in the United States", "Native; Born Outside the United States", "Foreign Born"];
-                    for (var i = 1; i < codesfor3.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data3.push({
-                            label: labelarray3[i - 1],
-                            val: sum,
-                            code: codesfor3[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    for (var i = 1; i < codesfor2.length + 1; i++) {
-                        data11.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data2.push({
-                            label: labelarray2[i - 1],
-                            val: sum,
-                            code: codesfor2[i - 1]
-                        });
-                        sum = 0;
-                    }
-                    svg1.selectAll('g').remove();
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie1", data2)
-                    drawPieChart("pie2", data3)
-                });
-        } else
-        if (dataselection.indexOf("005E") != -1) {
-            codes = ["B06012_006E", "B06012_007E", "B06012_008E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("009E") != -1) {
-            codes = ["B06012_010E", "B06012_011E", "B06012_012E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("013E") != -1) {
-            codes = ["B06012_014E", "B06012_015E", "B06012_016E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("017E") != -1) {
-            codes = ["B06012_018E", "B06012_019E", "B06012_020E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
+    if (dataselection.indexOf("009E") != -1) {
+        codes = ["B06012_010E", "B06012_011E", "B06012_012E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
         }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
     } else
-    if (dataselection.indexOf("B06009_0") == 0) {
-        if (dataselection.indexOf("001E") != -1) {
-            codesfor3 = ["B06012_002E", "B06012_003E", "B06012_004E", "B06012_005E", "B06012_006E"];
-            codesfor2 = ["B06012_007E", "B06012_013E", "B06012_019E", "B06012_025E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codesfor3.length; i++) {
-                querystr = querystr + "," + codesfor3[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            querystr1 = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codesfor2.length; i++) {
-                querystr1 = querystr1 + "," + codesfor2[i];
-            }
-            querystr1 = querystr1 + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .defer(d3.json, querystr1)
-                .await(function(error, data1, data11) {
-                    var sum = 0;
-                    var data3 = [];
-                    var data2 = [];
-                    data1.splice(0, 1);
-                    data11.splice(0, 1);
-
-
-                    var labelarray3 = ["Less than High School Graduate", "High School Graduate (Includes Equivalency)", "Some College or Associate's Degree", "Bachelor's Degree", "Graduate or Professional Degree"];
-                    var labelarray2 = ["Born in State of Residence", "Born in Other State in the United States", "Native; Born Outside the United States", "Foreign Born"];
-                    for (var i = 1; i < codesfor3.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data3.push({
-                            label: labelarray3[i - 1],
-                            val: sum,
-                            code: codesfor3[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    for (var i = 1; i < codesfor2.length + 1; i++) {
-                        data11.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data2.push({
-                            label: labelarray2[i - 1],
-                            val: sum,
-                            code: codesfor2[i - 1]
-                        });
-                        sum = 0;
-                    }
-                    svg1.selectAll('g').remove();
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie1", data2)
-                    drawPieChart("pie2", data3)
-                });
-        } else
-        if (dataselection.indexOf("007E") != -1) {
-            codes = ["B06012_008E", "B06012_009E", "B06012_010E", "B06012_011E", "B06012_012E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Less than High School Graduate", "High School Graduate (Includes Equivalency)", "Some College or Associate's Degree", "Bachelor's Degree", "Graduate or Professional Degree"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("013E") != -1) {
-            codes = ["B06012_014E", "B06012_015E", "B06012_016E", "B06012_017E", "B06012_018E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Less than High School Graduate", "High School Graduate (Includes Equivalency)", "Some College or Associate's Degree", "Bachelor's Degree", "Graduate or Professional Degree"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("019E") != -1) {
-            codes = ["B06012_020E", "B06012_021E", "B06012_022E", "B06012_023E", "B06012_024E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-                    svg1.selectAll('g').remove();
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("025E") != -1) {
-            codes = ["B06012_026E", "B06012_027E", "B06012_028E", "B06012_029E", "B06012_030E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
+    if (dataselection.indexOf("013E") != -1) {
+        codes = ["B06012_014E", "B06012_015E", "B06012_016E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
         }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
     } else
-    if (dataselection.indexOf("B08303_0") == 0) {
-        if (dataselection.indexOf("001E") != -1) {
-
-
-            codes = ["B08303_002E", "B08303_003E", "B08303_004E", "B08303_005E", "B08303_006E", "B08303_007E", "B08303_008E", "B08303_009E", "B08303_010E", "B08303_011E", "B08303_012E", "B08303_013E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Less than 5 Minutes", "5 to 9 Minutes", "10 to 14 Minutes", "15 to 19 Minutes", "20 to 24 Minutes", "25 to 29 Minutes", "30 to 34 Minutes", "35 to 39 Minutes", "40 to 44 Minutes", "45 to 59 Minutes", "60 to 89 Minutes", "90 or More Minutes"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-                    svg1.selectAll('g').remove();
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie1", data)
-                });
-
+    if (dataselection.indexOf("017E") != -1) {
+        codes = ["B06012_018E", "B06012_019E", "B06012_020E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
         }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
     }
-    if (dataselection.indexOf("B08301_0") == 0) {
-        if (dataselection.indexOf("001E") != -1) {
-            codes = ["B08301_002E", "B08301_010E", "B08301_016E", "B08301_017E", "B08301_018E", "B08301_019E", "B08301_020E", "B08301_021E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Car, Truck, or Van", "Public Transportation (Excluding Taxicab)", "Taxicab", "Motorcycle", "Bicycle", "Walked", "Other Means", "Worked at Home"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-                    svg1.selectAll('g').remove();
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie1", data)
-                });
-        } else
-        if (dataselection.indexOf("002E") != -1) {
-            codes = ["B08301_003E", "B08301_004E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Drove Alone", "Carpooled"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
-        } else
-        if (dataselection.indexOf("004E") != -1) {
-            codes = ["B08301_005E", "B08301_006E", "B08301_007E", "B08301_008E", "B08301_009E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["In 2-Person Carpool", "In 3-Person Carpool", "In 4-Person Carpool", "In 5- or 6-Person Carpool", "In 7-or-More-Person Carpool"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie3", data)
-                });
-        } else
-        if (dataselection.indexOf("010E") != -1) {
-            codes = ["B08301_011E", "B08301_012E", "B08301_013E", "B08301_014E", "B08301_015E"];
-            querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
-            for (var i = 0; i < codes.length; i++) {
-                querystr = querystr + "," + codes[i];
-            }
-            querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
-            queue()
-                .defer(d3.json, querystr)
-                .await(function(error, data1) {
-                    var sum = 0;
-                    var data = [];
-                    data1.splice(0, 1);
-                    var labelarray = ["Bus or Trolley Bus", "Streetcar or Trolley Car (Carro Publico in Puerto Rico)", "Subway or Elevated", "Railroad", "Ferryboat"];
-                    for (var i = 1; i < codes.length + 1; i++) {
-                        data1.forEach(function(elem) {
-                            if (elem[i] != null)
-                                sum += parseInt(elem[i]);
-                        });
-                        data.push({
-                            label: labelarray[i - 1],
-                            val: sum,
-                            code: codes[i - 1]
-                        });
-                        sum = 0;
-                    }
-
-                    svg2.selectAll('g').remove();
-                    svg3.selectAll('g').remove();
-                    drawPieChart("pie2", data)
-                });
+} else
+if (dataselection.indexOf("B06009_0") == 0) {
+    if (dataselection.indexOf("001E") != -1) {
+        codesfor3 = ["B06012_002E", "B06012_003E", "B06012_004E", "B06012_005E", "B06012_006E"];
+        codesfor2 = ["B06012_007E", "B06012_013E", "B06012_019E", "B06012_025E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codesfor3.length; i++) {
+            querystr = querystr + "," + codesfor3[i];
         }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        querystr1 = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codesfor2.length; i++) {
+            querystr1 = querystr1 + "," + codesfor2[i];
+        }
+        querystr1 = querystr1 + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .defer(d3.json, querystr1)
+            .await(function(error, data1, data11) {
+                var sum = 0;
+                var data3 = [];
+                var data2 = [];
+                data1.splice(0, 1);
+                data11.splice(0, 1);
+
+
+                var labelarray3 = ["Less than High School Graduate", "High School Graduate (Includes Equivalency)", "Some College or Associate's Degree", "Bachelor's Degree", "Graduate or Professional Degree"];
+                var labelarray2 = ["Born in State of Residence", "Born in Other State in the United States", "Native; Born Outside the United States", "Foreign Born"];
+                for (var i = 1; i < codesfor3.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data3.push({
+                        label: labelarray3[i - 1],
+                        val: sum,
+                        code: codesfor3[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                for (var i = 1; i < codesfor2.length + 1; i++) {
+                    data11.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data2.push({
+                        label: labelarray2[i - 1],
+                        val: sum,
+                        code: codesfor2[i - 1]
+                    });
+                    sum = 0;
+                }
+                svg1.selectAll('g').remove();
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie1", data2)
+                drawPieChart("pie2", data3)
+            });
+    } else
+    if (dataselection.indexOf("007E") != -1) {
+        codes = ["B06012_008E", "B06012_009E", "B06012_010E", "B06012_011E", "B06012_012E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Less than High School Graduate", "High School Graduate (Includes Equivalency)", "Some College or Associate's Degree", "Bachelor's Degree", "Graduate or Professional Degree"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
+    } else
+    if (dataselection.indexOf("013E") != -1) {
+        codes = ["B06012_014E", "B06012_015E", "B06012_016E", "B06012_017E", "B06012_018E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Less than High School Graduate", "High School Graduate (Includes Equivalency)", "Some College or Associate's Degree", "Bachelor's Degree", "Graduate or Professional Degree"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
+    } else
+    if (dataselection.indexOf("019E") != -1) {
+        codes = ["B06012_020E", "B06012_021E", "B06012_022E", "B06012_023E", "B06012_024E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+                svg1.selectAll('g').remove();
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
+    } else
+    if (dataselection.indexOf("025E") != -1) {
+        codes = ["B06012_026E", "B06012_027E", "B06012_028E", "B06012_029E", "B06012_030E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Below 100 Percent of the Poverty Level", "100 to 149 Percent of the Poverty Level", "At or Above 150 Percent of the Poverty Level"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
+    }
+} else
+if (dataselection.indexOf("B08303_0") == 0) {
+    if (dataselection.indexOf("001E") != -1) {
+
+
+        codes = ["B08303_002E", "B08303_003E", "B08303_004E", "B08303_005E", "B08303_006E", "B08303_007E", "B08303_008E", "B08303_009E", "B08303_010E", "B08303_011E", "B08303_012E", "B08303_013E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Less than 5 Minutes", "5 to 9 Minutes", "10 to 14 Minutes", "15 to 19 Minutes", "20 to 24 Minutes", "25 to 29 Minutes", "30 to 34 Minutes", "35 to 39 Minutes", "40 to 44 Minutes", "45 to 59 Minutes", "60 to 89 Minutes", "90 or More Minutes"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+                svg1.selectAll('g').remove();
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie1", data)
+            });
 
     }
+}
+if (dataselection.indexOf("B08301_0") == 0) {
+    if (dataselection.indexOf("001E") != -1) {
+        codes = ["B08301_002E", "B08301_010E", "B08301_016E", "B08301_017E", "B08301_018E", "B08301_019E", "B08301_020E", "B08301_021E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Car, Truck, or Van", "Public Transportation (Excluding Taxicab)", "Taxicab", "Motorcycle", "Bicycle", "Walked", "Other Means", "Worked at Home"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+                svg1.selectAll('g').remove();
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie1", data)
+            });
+    } else
+    if (dataselection.indexOf("002E") != -1) {
+        codes = ["B08301_003E", "B08301_004E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Drove Alone", "Carpooled"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
+    } else
+    if (dataselection.indexOf("004E") != -1) {
+        codes = ["B08301_005E", "B08301_006E", "B08301_007E", "B08301_008E", "B08301_009E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["In 2-Person Carpool", "In 3-Person Carpool", "In 4-Person Carpool", "In 5- or 6-Person Carpool", "In 7-or-More-Person Carpool"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg3.selectAll('g').remove();
+                drawPieChart("pie3", data)
+            });
+    } else
+    if (dataselection.indexOf("010E") != -1) {
+        codes = ["B08301_011E", "B08301_012E", "B08301_013E", "B08301_014E", "B08301_015E"];
+        querystr = "http://api.census.gov/data/2015/acs1?get=NAME";
+        for (var i = 0; i < codes.length; i++) {
+            querystr = querystr + "," + codes[i];
+        }
+        querystr = querystr + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09";
+        queue()
+            .defer(d3.json, querystr)
+            .await(function(error, data1) {
+                var sum = 0;
+                var data = [];
+                data1.splice(0, 1);
+                var labelarray = ["Bus or Trolley Bus", "Streetcar or Trolley Car (Carro Publico in Puerto Rico)", "Subway or Elevated", "Railroad", "Ferryboat"];
+                for (var i = 1; i < codes.length + 1; i++) {
+                    data1.forEach(function(elem) {
+                        if (elem[i] != null)
+                            sum += parseInt(elem[i]);
+                    });
+                    data.push({
+                        label: labelarray[i - 1],
+                        val: sum,
+                        code: codes[i - 1]
+                    });
+                    sum = 0;
+                }
+
+                svg2.selectAll('g').remove();
+                svg3.selectAll('g').remove();
+                drawPieChart("pie2", data)
+            });
+    }
+
+}
 }
 
 function drawPieChart(pienumber, data1) {
