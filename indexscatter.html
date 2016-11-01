@@ -1051,9 +1051,6 @@
                 .on("mouseover", tip.show)
                 .on("mouseleave", tip.hide);
 
-
-
-
         var xAxis = d3.svg.axis()
                 .scale(xScale)
                 .orient('bottom');
@@ -1181,7 +1178,6 @@ usdata = one;
 
                         var prop = arr[0][arr[1].indexOf(d.id)];
                         var index = parseFloat([arr[1].indexOf(d.id)]);
-                        //if(index!=-1)
                         return "<strong>" + countyNameObj[index][prop] + " : </strong> <span>" + d3.format('.2s')(prop) + "<span>";
                     });
 
@@ -1197,8 +1193,6 @@ usdata = one;
                     .data(topojson.feature(us, us.objects.counties).features)
                     .enter().append("path")
                     .style("fill", function(d) {
-
-                        //console.log(arr[0][arr[1].indexOf(d.id)]);
                         return quantize(arr[0][arr[1].indexOf(d.id)]);
                     })
                     .attr("d", path)
