@@ -1,56 +1,60 @@
 
 var biggestObject={
-    "Total population within the locality-Total":"B01003_001E",
+    "Total population within the locality" :{"Total":"B01003_001E"},
 
-    "Age distribution broken down by sex-Total":"B01001_001E",
-    "Male":"B01001_002E",
-    "Under 5 Years":"B01001_003E",
-    "5 to 9 Years":"B01001_004E",
-    "10 to 14 Years":"B01001_005E",
-    "15 to 17 Years":"B01001_006E",
-    "18 and 19 Years":"B01001_007E",
-    "20 Years":"B01001_008E",
-    "21 Years":"B01001_009E",
-    "22 to 24 Years":"B01001_010E",
-    "25 to 29 Years":"B01001_011E",
-    "30 to 34 Years":"B01001_012E",
-    "35 to 39 Years":"B01001_013E",
-    "40 to 44 Years":"B01001_014E",
-    "45 to 49 Years":"B01001_015E",
-    "50 to 54 Years":"B01001_016E",
-    "55 to 59 Years":"B01001_017E",
-    "60 and 61 Years":"B01001_018E",
-    "62 to 64 Years":"B01001_019E",
-    "65 and 66 Years":"B01001_020E",
-    "67 to 69 Years":"B01001_021E",
-    "70 to 74 Years":"B01001_022E",
-    "75 to 79 Years":"B01001_023E",
-    "80 to 84 Years":"B01001_024E",
-    "85 Years and over":"B01001_025E",
-    "Female":"B01001_026E",
-    "Under 5 Years":"B01001_027E",
-    "5 to 9 Years":"B01001_028E",
-    "10 to 14 Years":"B01001_029E",
-    "15 to 17 Years":"B01001_030E",
-    "18 and 19 Years":"B01001_031E",
-    "20 Years":"B01001_032E",
-    "21 Years":"B01001_033E",
-    "22 to 24 Years":"B01001_034E",
-    "25 to 29 Years":"B01001_035E",
-    "30 to 34 Years":"B01001_036E",
-    "35 to 39 Years":"B01001_037E",
-    "40 to 44 Years":"B01001_038E",
-    "45 to 49 Years":"B01001_039E",
-    "50 to 54 Years":"B01001_040E",
-    "55 to 59 Years":"B01001_041E",
-    "60 and 61 Years":"B01001_042E",
-    "62 to 64 Years":"B01001_043E",
-    "65 and 66 Years":"B01001_044E",
-    "67 to 69 Years":"B01001_045E",
-    "70 to 74 Years":"B01001_046E",
-    "75 to 79 Years":"B01001_047E",
-    "80 to 84 Years":"B01001_048E",
-    "85 Years and over":"B01001_049E",
+    "Age distribution broken down by sex":{
+        "Total":"B01001_001E",
+        "Male":{
+            "Male":"B01001_002E",
+            "Under 5 Years":"B01001_003E",
+            "5 to 9 Years":"B01001_004E",
+            "10 to 14 Years":"B01001_005E",
+            "15 to 17 Years":"B01001_006E",
+            "18 and 19 Years":"B01001_007E",
+            "20 Years":"B01001_008E",
+            "21 Years":"B01001_009E",
+            "22 to 24 Years":"B01001_010E",
+            "25 to 29 Years":"B01001_011E",
+            "30 to 34 Years":"B01001_012E",
+            "35 to 39 Years":"B01001_013E",
+            "40 to 44 Years":"B01001_014E",
+            "45 to 49 Years":"B01001_015E",
+            "50 to 54 Years":"B01001_016E",
+            "55 to 59 Years":"B01001_017E",
+            "60 and 61 Years":"B01001_018E",
+            "62 to 64 Years":"B01001_019E",
+            "65 and 66 Years":"B01001_020E",
+            "67 to 69 Years":"B01001_021E",
+            "70 to 74 Years":"B01001_022E",
+            "75 to 79 Years":"B01001_023E",
+            "80 to 84 Years":"B01001_024E",
+            "85 Years and over":"B01001_025E"},
+        "Female":{
+            "Female":"B01001_026E",
+            "Under 5 Years":"B01001_027E",
+            "5 to 9 Years":"B01001_028E",
+            "10 to 14 Years":"B01001_029E",
+            "15 to 17 Years":"B01001_030E",
+            "18 and 19 Years":"B01001_031E",
+            "20 Years":"B01001_032E",
+            "21 Years":"B01001_033E",
+            "22 to 24 Years":"B01001_034E",
+            "25 to 29 Years":"B01001_035E",
+            "30 to 34 Years":"B01001_036E",
+            "35 to 39 Years":"B01001_037E",
+            "40 to 44 Years":"B01001_038E",
+            "45 to 49 Years":"B01001_039E",
+            "50 to 54 Years":"B01001_040E",
+            "55 to 59 Years":"B01001_041E",
+            "60 and 61 Years":"B01001_042E",
+            "62 to 64 Years":"B01001_043E",
+            "65 and 66 Years":"B01001_044E",
+            "67 to 69 Years":"B01001_045E",
+            "70 to 74 Years":"B01001_046E",
+            "75 to 79 Years":"B01001_047E",
+            "80 to 84 Years":"B01001_048E",
+            "85 Years and over":"B01001_049E"}
+    },
 
 
     "Median Age by sex - Total":"B01002_001E",
@@ -329,17 +333,21 @@ var eightMapObj = {
 var apiKey = "576299d4bf73993515a4994ffe79fcee7fe72b09";
 
 // for(var eachObj in eightMapObj){
-queue()
-    .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01002_001E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B19013_001E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B02001_002E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,C05002_002E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B17002_002E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08301_002E&for=state:*&key=" + apiKey)
-    .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08301_010E&for=state:*&key=" + apiKey)
-    .await(getMapsData);
+$(document).ready(function(){
+    var temp = biggestObject;
+    queue()
+        .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01002_001E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B19013_001E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B02001_002E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,C05002_002E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B17002_002E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08301_002E&for=state:*&key=" + apiKey)
+        .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B08301_010E&for=state:*&key=" + apiKey)
+        .await(getMapsData);
+});
+
 
 var pop1 = [];
 var pop2 = [];
