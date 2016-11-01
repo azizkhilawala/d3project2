@@ -1303,8 +1303,10 @@ function getTransportCountyData(error,data){
                      income to poverty level click modal code starts here
                      *********************************************************************************/
 
+if(dataselection == "B17002_001E"){
+
 var incomeToPovertyObj = {
-  "Income to poverty-level ratio-Total":"B17002_001E",
+
   "Under .50":"B17002_002E",
   ".50 to .74":"B17002_003E",
   ".75 to .99":"B17002_004E",
@@ -1316,13 +1318,114 @@ var incomeToPovertyObj = {
   "2.00 to 2.99":"B17002_010E",
   "3.00 to 3.99":"B17002_011E",
   "4.00 to 4.99":"B17002_012E",
-  "5.00 and over":"B17002_013E",
+  "5.00 and over":"B17002_013E"
+
 }
 
+var intpKeys = Object.keys(incomeToPovertyObj);
+var intpObjArray = [];
+var intpValues = [];
+
+for(var attr in incomeToPovertyObj){
+    queue()
+        .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + incomeToPovertyObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+        .await(getIntpCountyData);
+}
+
+}//close if
+
+function getIntpCountyData(error,data){
+var oneObj = {};
+oneObj.name = countyNameObj[index][prop];
+data.splice(0,1);
+data.forEach(function(index){
+    oneObj.population = Math.floor(index[1]);
+    intpValues.push(oneObj.population);
+});
+
+intpObjArray.push(oneObj);
+
+for(var i =0;i<intpObjArray.length;i++){
+    var obj = intpObjArray[i];
+    obj.ratio = intpKeys[i];
+}
+
+if(intpObjArray.length == intpKeys.length){
+  d3.select('#mainBarChartCounty2').selectAll('g').remove();
+  $('#modal-title-county').text(countyNameObj[index][prop] + " | Income to poverty level ratio");
+drawBarChartCounty(intpObjArray,intpValues,'#mainBarChartCounty','ratio','population','name','Income to poverty level ratio','Population');
+}
+}
 /*********************************************************************************
  income to poverty level click modal code ends here
  *********************************************************************************/
 
+ /*********************************************************************************
+  Place of birth by nativity click modal code starts here
+  *********************************************************************************/
+
+  if(dataselection == "C05002_001E"){
+
+  var placeOfBirthObj = {
+
+    "Native":"C05002_002E",
+    "Born in State of Residence":"C05002_003E",
+    "Born in Other State in the United States":"C05002_004E",
+    "Born Outside the United States":"C05002_005E",
+    "Puerto Rico":"C05002_006E",
+    "U.s. Island Areas or Born Abroad of American Parent(S)":"C05002_007E",
+    "Foreign Born":"C05002_008E"
+
+  }
+
+  var pobKeys = Object.keys(placeOfBirthObj);
+  var pobObjArray = [];
+  var pobValues = [];
+
+  for(var attr in placeOfBirthObj){
+      queue()
+          .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + placeOfBirthObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+          .await(getpobCountyData);
+  }
+
+  }//close if
+
+  function getpobCountyData(error,data){
+  var oneObj = {};
+  oneObj.name = countyNameObj[index][prop];
+  data.splice(0,1);
+  data.forEach(function(index){
+      oneObj.population = Math.floor(index[1]);
+      pobValues.push(oneObj.population);
+  });
+
+  pobObjArray.push(oneObj);
+
+  for(var i =0;i<pobObjArray.length;i++){
+      var obj = pobObjArray[i];
+      obj.pob = pobKeys[i];
+  }
+
+  if(pobObjArray.length == pobKeys.length){
+    d3.select('#mainBarChartCounty2').selectAll('g').remove();
+    $('#modal-title-county').text(countyNameObj[index][prop] + " | Place of Birth by Nativity");
+  drawBarChartCounty(pobObjArray,pobValues,'#mainBarChartCounty','pob','population','name','Place of Birth by Nativity','Population');
+  }
+  }
+
+  /*********************************************************************************
+   Place of birth by nativity click modal code ends here
+   *********************************************************************************/
+
+   /*********************************************************************************
+    Poverty Level by place of birth click modal code starts here
+    *********************************************************************************/
+
+    
+
+    /*********************************************************************************
+      Poverty Level by place of birth click modal code ends here
+     *********************************************************************************/
 
                 //function drawBarChart begins here
                 function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
