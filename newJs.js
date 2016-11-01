@@ -1173,6 +1173,65 @@ function drawMap(error, usdata) {
                  livingArrangement on click modal code ends here
                  *********************************************************************************/
 
+                 /*********************************************************************************
+                  travel time to work on click modal code starts here
+                  *********************************************************************************/
+if(dataselection == 'B08303_001E'){
+console.log('in travle time');
+
+  var travelTimeObj = {
+    "Less than 5 Minutes":"B08303_002E",
+    "5 to 9 Minutes":"B08303_003E",
+    "10 to 14 Minutes":"B08303_004E",
+    "15 to 19 Minutes":"B08303_005E",
+    "20 to 24 Minutes":"B08303_006E",
+    "25 to 29 Minutes":"B08303_007E",
+    "30 to 34 Minutes":"B08303_008E",
+    "35 to 39 Minutes":"B08303_009E",
+    "40 to 44 Minutes":"B08303_010E",
+    "45 to 59 Minutes":"B08303_011E",
+    "60 to 89 Minutes":"B08303_012E",
+    "90 or More Minutes":"B08303_013E"
+  }
+
+var travelTimeKeys = Object.keys(travelTimeObj);
+var travelTimeObjArray = [];
+var travelTimeValues = [];
+
+for(var attr in travelTimeObj){
+    queue()
+        .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + travelTimeObj[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+        .await(getTravelTimeCountyData);
+}
+}//close if
+
+function getTravelTimeCountyData(error,data){
+
+    var oneObj = {};
+    oneObj.name = countyNameObj[index][prop];
+    data.splice(0,1);
+    data.forEach(function(index){
+        oneObj.population = Math.floor(index[1]);
+        travelTimeValues.push(oneObj.population);
+    });
+
+    travelTimeObjArray.push(oneObj);
+
+    for(var i =0;i<travelTimeObjArray.length;i++){
+        var obj = travelTimeObjArray[i];
+        obj.travelTime = travelTimeKeys[i];
+    }
+
+    if(travelTimeObjArray.length == 12){
+      d3.select('#mainBarChartCounty2').selectAll('g').remove();
+    drawBarChartCounty(travelTimeObjArray,travelTimeValues,'#mainBarChartCounty','travelTime','population','name','Travel Time','Population');
+    }
+
+}//end function getTravelTimeCountyData
+
+                  /*********************************************************************************
+                   travel time to work on click modal code ends here
+                   *********************************************************************************/
 
                 //function drawBarChart begins here
                 function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
