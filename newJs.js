@@ -1224,14 +1224,105 @@ function getTravelTimeCountyData(error,data){
 
     if(travelTimeObjArray.length == 12){
       d3.select('#mainBarChartCounty2').selectAll('g').remove();
+      $('#modal-title-county').text(countyNameObj[index][prop] + " | Travel Time to Work");
     drawBarChartCounty(travelTimeObjArray,travelTimeValues,'#mainBarChartCounty','travelTime','population','name','Travel Time','Population');
     }
 
 }//end function getTravelTimeCountyData
 
                   /*********************************************************************************
-                   travel time to work on click modal code ends here
+                   means of transportation to work on click modal code starts here
                    *********************************************************************************/
+if(dataselection == 'B08301_001E'){
+console.log("in means of transport");
+
+  var meansOfTransport = {
+
+     "Car, Truck, or Van":"B08301_002E",
+     "Drove Alone":"B08301_003E",
+     "Carpooled":"B08301_004E",
+     "In 2-Person Carpool":"B08301_005E",
+     "In 3-Person Carpool":"B08301_006E",
+     "In 4-Person Carpool":"B08301_007E",
+     "In 5- or 6-Person Carpool":"B08301_008E",
+     "In 7-or-More-Person Carpool":"B08301_009E",
+     "Public Transportation (Excluding Taxicab)":"B08301_010E",
+     "Bus or Trolley Bus":"B08301_011E",
+     "Streetcar or Trolley Car (Carro Publico in Puerto Rico)":"B08301_012E",
+     "Subway or Elevated":"B08301_013E",
+     "Railroad":"B08301_014E",
+     "Ferryboat":"B08301_015E",
+     "Taxicab":"B08301_016E",
+     "Motorcycle":"B08301_017E",
+     "Bicycle":"B08301_018E",
+     "Walked":"B08301_019E",
+     "Other Means":"B08301_020E",
+     "Worked at Home":"B08301_021E"
+
+  }
+
+  var transportKeys = Object.keys(meansOfTransport);
+  var transportObjArray = [];
+  var transportValues = [];
+
+  for(var attr in meansOfTransport){
+      queue()
+          .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + meansOfTransport[attr] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
+          .await(getTransportCountyData);
+  }
+
+}//close if
+
+function getTransportCountyData(error,data){
+  var oneObj = {};
+  oneObj.name = countyNameObj[index][prop];
+  data.splice(0,1);
+  data.forEach(function(index){
+      oneObj.population = Math.floor(index[1]);
+      transportValues.push(oneObj.population);
+  });
+
+  transportObjArray.push(oneObj);
+
+  for(var i =0;i<transportObjArray.length;i++){
+      var obj = transportObjArray[i];
+      obj.transportType = transportKeys[i];
+  }
+
+  if(transportObjArray.length == 20){
+    d3.select('#mainBarChartCounty2').selectAll('g').remove();
+    $('#modal-title-county').text(countyNameObj[index][prop] + " | Means of Transport to Work");
+  drawBarChartCounty(transportObjArray,transportValues,'#mainBarChartCounty','transportType','population','name','Means of Transportation','Population');
+  }
+}
+                   /*********************************************************************************
+                    means of transportationon click modal code ends here
+                    *********************************************************************************/
+
+                    /*********************************************************************************
+                     income to poverty level click modal code starts here
+                     *********************************************************************************/
+
+var incomeToPovertyObj = {
+  "Income to poverty-level ratio-Total":"B17002_001E",
+  "Under .50":"B17002_002E",
+  ".50 to .74":"B17002_003E",
+  ".75 to .99":"B17002_004E",
+  "1.00 to 1.24":"B17002_005E",
+  "1.25 to 1.49":"B17002_006E",
+  "1.50 to 1.74":"B17002_007E",
+  "1.75 to 1.84":"B17002_008E",
+  "1.85 to 1.99":"B17002_009E",
+  "2.00 to 2.99":"B17002_010E",
+  "3.00 to 3.99":"B17002_011E",
+  "4.00 to 4.99":"B17002_012E",
+  "5.00 and over":"B17002_013E",
+}
+
+/*********************************************************************************
+ income to poverty level click modal code ends here
+ *********************************************************************************/
+
 
                 //function drawBarChart begins here
                 function drawBarChartCounty(totalObjectArray, totalPopulationArray, svgId,xCol,yCol,colorCol,xLabel,yLabel) {
