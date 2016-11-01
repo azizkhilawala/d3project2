@@ -1130,28 +1130,26 @@ function getLivingCountyData(error,data){
   oneObj.ageGroup = "18 to 34 years";
   data.splice(0,1);
   data.forEach(function(index){
-    // if(index[1] == null){}
     oneObj.population = Math.floor(index[1]);
-    raceTotalValues.push(oneObj.population);
+    livingTotalValues1.push(oneObj.population);
   });
 
-  raceObjArray.push(oneObj);
-  //console.log(raceObjArray);
-    for(var i =0;i<raceObjArray.length;i++){
-        var obj = raceObjArray[i];
-        obj.race = raceObjectKeys[i];
+  livingObjArray1.push(oneObj);
+    for(var i =0;i<livingObjArray1.length;i++){
+        var obj = livingObjArray1[i];
+        obj.livingArrangement = livingKey1[i];
       }
 
-    if(raceObjArray.length === 7){
-      drawBarChartCounty(raceObjArray,raceTotalValues,'#mainBarChartCounty','race','population','name','Races','Population');
+    if(livingObjArray1.length === 6){
+      drawBarChartCounty(livingObjArray1,livingTotalValues1,'#mainBarChartCounty','livingArrangement','population','ageGroup','arrangement','Population');
     }
 }//end function getRaceCountyData
 
-function getRaceCountyData2(error,data){
+function getLivingCountyData2(error,data){
   // console.log("in getRaceCountyData");
     var oneObj = {};
     // oneObj.sex = "Female";
-    oneObj.name = countyNameObj[index][prop];
+    oneObj.ageGroup = "35 to 64 years";
     data.splice(0,1);
     data.forEach(function(index){
       // if(index[1] == null){}
@@ -1171,7 +1169,7 @@ function getRaceCountyData2(error,data){
       }
   }//end function getRaceCountyData2
 
-}
+
 /*********************************************************************************
                   living arrangement on click modal code ends here
 *********************************************************************************/
@@ -2498,8 +2496,6 @@ function pieChart(pienumber) {
     } else
     if (dataselection.indexOf("B19013_0") == 0) {
         val = "B19013_001E";
-<<<<<<< HEAD
-=======
         svg1.selectAll('g').remove();
         svg2.selectAll('g').remove();
         svg3.selectAll('g').remove();
@@ -2790,7 +2786,7 @@ if (dataselection.indexOf("B06009_0") == 0) {
                 drawPieChart("pie1", data2)
                 drawPieChart("pie2", data3)
             });
->>>>>>> origin/master
+
     } else
     if (dataselection.indexOf("B19301_0") == 0) {
         val = "B19301_001E";
