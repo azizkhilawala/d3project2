@@ -390,6 +390,11 @@ $("#eight-mapdrop-8").on('change', function(){
 });
 
 var idArray =  []
+var eight1 = [];
+var eight2 = [];
+var nameOfState = [];
+var eightTotal = [];
+
 function fetchMapData(val){
   idArray.length = 0;
   idArray.push(arguments[1]);
@@ -400,10 +405,7 @@ function fetchMapData(val){
   .await(indyMap);
   // .await(indyMap,arguments[1);
 }
-var eight1 = [];
-var eight2 = [];
-var nameOfState = [];
-var eightTotal = [];
+
 
 function indyMap(error,usjson,data){
   eight1.length = 0;
@@ -1016,19 +1018,13 @@ function drawMap(error, usdata) {
             //aziz integration code 2
             .on('click', function(d) {
 
-                // d3.select('#mainBarChartCounty').selectAll('g').remove();
-                // d3.select('#mainBarChartCounty2').selectAll('g').remove();
-
                 var onClickCountyName = [];
                 var prop = arr[0][arr[1].indexOf(d.id)]; //prop returns me the value (i.e population,age,etc)
-                //console.log("prop of county", prop);
+
                 var index = parseFloat([arr[1].indexOf(d.id)]); //index of d.id in arr[1]
-                //console.log("index county", index);
+
                 var countyName = countyNameObj[index][prop];
-                //console.log("countyNameObjArray",countyNameObj);
-                //get the selected county Id;
-                // var idCounty = countyNameObj[index][countyName];
-                //var idCounty = countyNameObj[index][countyName];
+
                 for(var name in dictionary){
                     if(dictionary[name] == dataselection){
                         $("#modal-title-county").text(countyName+" | "+name+ " - " +prop);
@@ -1038,7 +1034,6 @@ function drawMap(error, usdata) {
                 $("#modal-section-county").modal('show');
 
                 console.log("index", countyNameObj[index]);
-                //console.log("idCounty", idCounty);
                 onClickCountyName.push(countyName);
                 console.log("countyName",countyName);
 
@@ -1051,7 +1046,7 @@ function drawMap(error, usdata) {
                  *********************************************************************************/
                 //for age distribution by sex
 
-                //console.log("objectKeys",objectKeys);
+
 
                 if(dataselection == "B01001_001E"){
 
@@ -1061,8 +1056,6 @@ function drawMap(error, usdata) {
                     var ageDistributionFemaleValues = [];
                     var objectKeys = Object.keys(ageDistributionObjMale);
 
-                    // d3.select('#mainBarChartCounty').selectAll('g').remove();
-                    // d3.select('#mainBarChartCounty2').selectAll('g').remove();
 
                     for(var attr in ageDistributionObjMale){
                         queue()
@@ -1683,48 +1676,6 @@ drawBarChartCounty(povObjArray,povObjValues,'#mainBarChartCounty','level','popul
 }
 
 }
-// var povBigObjArray = [];
-//
-// for(var j=0;j<3;j++){
-//
-//   var povObj = {};
-//
-//   povObj.name = "Born in State of Residence";
-//   povObj.level = povInStateKeys[j];
-//
-// queue()
-//   .defer(d3.json,"http://api.census.gov/data/2015/acs1?get=NAME," + povInState[povObj.level] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey)
-//   .await(ready);
-//
-// function ready(error,data){
-//   data.splice(0,1);
-//   console.log(data);
-//   data.forEach(function(index){
-//     povObj.population = index[1];
-//     povBigObjArray.push(povObj);
-//   });
-//   console.log(povBigObjArray);
-// }
-// }//for loop end
-
-
-
-    // $.ajax({
-    //   url: "http://api.census.gov/data/2015/acs1?get=NAME," + povInState[povObj.level] + "&for=" + scselection + ":"+countyNameObj[index].countyID +"&in=state:"+countyNameObj[index].stateID+"&key="+apiKey,
-    //   success: function(data){
-    //     data.splice(0,1);
-    //     data.forEach(function(element){
-    //       povObj.population = parseInt(element[1]);
-    //     });
-    //   },
-    //   complete: function(){
-    //       i++;
-    //       povBigObjArray.push(povObj);
-    //
-    //   }
-    // });
-
-
 
 
     /*********************************************************************************
@@ -2045,9 +1996,9 @@ function getLivingCountyData2(error,data){
       }
   }//end function getRaceCountyData2
 
-// /*********************************************************************************
-//                   race distribution on click modal code ends here
-// *********************************************************************************/
+ /*********************************************************************************
+                   race distribution on click modal code ends here
+ *********************************************************************************/
 
 
                             //function drawBarChart begins here
@@ -2307,10 +2258,7 @@ function getLivingCountyData2(error,data){
                 onClickStateName.push(stateName);
                 console.log(stateName);
 
-                // console.log(this);
-                // var singlestateNameObj = {};
-                // singlestateNameObj.name = stateName;
-                // singlestateNameObj.population = prop;
+
                 var levelTwoVariablesObj = {};
                 var levelTwoVariablesObjArray = [];
                 var levelTwoVariables = [];
@@ -2542,28 +2490,6 @@ function getLivingCountyData2(error,data){
                     queue()
                         .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + acsId + "&for=state:" + idState + "&key=" + apiKey)
                         .await(displayTotal);
-                    // var value = "";
-                    // $.ajax({
-                    //     url: "http://api.census.gov/data/2015/acs1?get=NAME," + acsId + "&for=state:" + idState + "&key=" + apiKey,
-                    //     crossDomain: true,
-                    //     beforeSend: function() {
-                    //         onlyTotalCount.length = 0;
-                    //     },
-                    //     success: function(data) {
-                    //         onlyTotalCount.length = 0;
-                    //         data.splice(0, 1);
-                    //         data.forEach(function(val) {
-                    //             $('#median-age').show();
-                    //             $('#median-age').text("Total Median Age: " + val[1]);
-                    //         });
-                    //     },
-                    //     complete: function() {
-                    //         // onlyTotalCount.push(value);
-                    //         // console.log(onlyTotalCount[0]);
-                    //         // displayTotal(onlyTotalCount);
-                    //     }
-                    // });
-
                 }
 
                 fetchApiData('B01002_001E', idState);
@@ -2689,66 +2615,6 @@ function getLivingCountyData2(error,data){
 
                 } //make pie chart function ends here
 
-                // var svg = d3.select("#mainPieChart");
-                // var margin = {
-                //     top: 20,
-                //     right: 50,
-                //     bottom: 20,
-                //     left: 70
-                // };
-                //
-                // var width = svg.attr("width") - margin.left - margin.right;
-                // var height = svg.attr("height") - margin.top - margin.bottom;
-                // var radius = Math.min(width, height) / 2;
-                //
-                // var color = d3.scale.ordinal()
-                //     .range(["#a05d56", "#ff8c00"]);
-                //
-                // var arc = d3.svg.arc()
-                //     .outerRadius(radius - 10)
-                //     .innerRadius(0);
-                //
-                // var labelArc = d3.svg.arc()
-                //     .outerRadius(radius - 40)
-                //     .innerRadius(radius - 40);
-                //
-                // var pie = d3.layout.pie()
-                //     .sort(null)
-                //     .value(function(d) {
-                //         return d['age'];
-                //     });
-                //
-                //
-                // var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                //
-                // var nested = d3.nest()
-                //     .key(function(d) {
-                //         return d['sex']
-                //     })
-                //     .entries(medianAgeObjArray);
-                // console.log("piechart nested", nested);
-                //
-                // var g = svg.selectAll(".arc")
-                //     .data(pie(nested))
-                //     .enter().append("g")
-                //     .attr("class", "arc");
-                //
-                // g.append("path")
-                //     .attr("d", arc)
-                //     .style("fill", function(d) {
-                //         return color(d.age);
-                //     });
-                //
-                // g.append("text")
-                //     .attr("transform", function(d) {
-                //         return "translate(" + labelArc.centroid(d) + ")";
-                //     })
-                //     .attr("dy", ".35em")
-                //     .text(function(d) {
-                //         return d.data[age];
-                //     });
-
-
 
                 console.log(medianAgeObjArray);
 
@@ -2806,7 +2672,7 @@ function getLivingCountyData2(error,data){
                     var xAxis = d3.svg.axis()
                         .scale(xScale)
                         .orient('bottom')
-                    // .tickValues("transform", "rotate(90)");
+
 
                     var yAxis = d3.svg.axis()
                         .scale(yScale)
@@ -2910,9 +2776,7 @@ function getLivingCountyData2(error,data){
                             return d.values;
                         });
 
-                        // var barWidth = xScale.rangeBand() / 2 colorScale.domain().length;
                         var barWidth = xScale.rangeBand() / 2.5;
-                        // console.log(colorScale.domain().length);
                         bars.enter().append("rect")
                         bars.exit().remove();
                         bars.attr("x", function(d, i, j) {
@@ -3063,30 +2927,7 @@ function pieChart(pienumber) {
                     svg3.selectAll('g').remove();
                     drawPieChart("pie2", data)
                 });
-            /*queue()
-             .defer(d3.json, "
-             http://api.census.gov/data/2015/acs1?get=NAME,B01001_027E,B01001_028E,B01001_029E,B01001_030E,B01001_031E,B01001_032E,B01001_033E,B01001_034E,B01001_035E,B01001_036E,B01001_037E,B01001_038E,B01001_039E,B01001_040E,B01001_041E,B01001_042E,B01001_043E,B01001_044E,B01001_045E,B01001_046E,B01001_047E,B01001_048E,B01001_049E&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
-             http://api.census.gov/data/2015/acs1?get=NAME,B01001_027E,B01001_028E,B01001_029E,B01001_030E,B01001_031E,B01001_032E,B01001_033E,B01001_034E,B01001_035E,B01001_036E,B01001_037E,B01001_038E,B01001_039E,B01001_040E,B01001_041E,B01001_042E,B01001_043E,B01001_044E,B01001_045E,B01001_046E,B01001_047E,B01001_048E,B01001_049E&for=state:*&key=              576299d4Bf73993515a4994ffe79fcee7fe72B09"
-             .await(function (error, data1) {
-             var sum = 0;
-             var data = [];
-             var labelarray = ["Under 5 Years", "5 to 9 Years", "10 to 14 Years", "15 to 17 Years", "18 and 19 Years", "20 Years", "21 Years", "22 to 24 Years", "25 to 29 Years", "30 to 34 Years", "35 to 39 Years", "40 to 44 Years", "45 to 49 Years", "50 to 54 Years", "55 to 59 Years", "60 and 61 Years", "62 to 64 Years", "65 and 66 Years", "67 to 69 Years", "70 to 74 Years", "75 to 79 Years", "80 to 84 Years", "85 Years and over"];
-             data1.splice(0, 1);
-             for(var i = 1;i<22;i++) {
-             data1.forEach(function (elem) {
-             if (elem[i] != null)
-             sum += parseInt(elem[i]);
-             });
-             data.push({
-             label:labelarray[i-1],
-             val: sum
-             });
-             sum = 0;
-             }
 
-             drawPieChart(pienumber, data)
-             });
-             */
         }
     } else
     if (dataselection.indexOf("B01002_0") == 0) {
@@ -4020,24 +3861,6 @@ function drawPieChart(pienumber, data1) {
                 .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME," + dataselection + "&for=" + scselection + ":*&key=576299d4bf73993515a4994ffe79fcee7fe72b09")
                 .await(drawMap);
         });
-    /*working
-     var g = piegroup.selectAll(".arc")
-     .data(pie(data1))
-     .enter()
-     .append("g")
-     .attr("class", "arc");
-
-     g.append("path")
-     .attr("d", arc)
-     .style("fill", function(d) {
-     return color(d.data.label);
-     });
-     */
-    /*g.append("text")
-     .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-     .attr("dy", ".35em")
-     .text(function(d) { return d.data.label; });
-     */
 
     function type(d) {
         d.population = +d.population;
