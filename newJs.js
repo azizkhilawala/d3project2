@@ -389,16 +389,6 @@ $("#eight-mapdrop-8").on('change', function(){
   fetchMapData(value,'#eight-map-8','#totalPublicMap');
 });
 
-// drawEightMaps('#eight-map-1', 'totalPopulationMap', totalPopArr);
-// drawEightMaps('#eight-map-2', 'totalMedianAgeMap', medianAgeArr);
-// drawEightMaps('#eight-map-3', 'totalMedianIncomeMap', medianIncomeArr);
-// drawEightMaps('#eight-map-4', 'totalRaceMap', raceArr);
-// drawEightMaps('#eight-map-5', 'totalNativeMap', nativeArr);
-// drawEightMaps('#eight-map-6', 'totalPovertyMap', povertyArr);
-// drawEightMaps('#eight-map-7', 'totalCarMap', carTranArr);
-// drawEightMaps('#eight-map-8', 'totalPublicMap', publicTranArr);
-
-
 var idArray =  []
 function fetchMapData(val){
   idArray.length = 0;
@@ -412,17 +402,22 @@ function fetchMapData(val){
 }
 var eight1 = [];
 var eight2 = [];
+var nameOfState = [];
 var eightTotal = [];
 
 function indyMap(error,usjson,data){
   eight1.length = 0;
   eight2.length = 0;
   eightTotal.length = 0;
+  nameOfState.length = 0;
   data.splice(0, 1);
   data.forEach(function(index) {
+      var nameObj = {};
       if (index[1] > 0) {
           eight1.push(Math.floor(parseInt(index[1]))); //value
           eight2.push(parseInt(index[2])); //state id
+          nameObj[Math.floor(index[1])] = index[0];
+          nameOfState.push(nameObj);
       }
   });
 
@@ -430,16 +425,15 @@ function indyMap(error,usjson,data){
   eightTotal.push(eight2);
 
   console.log(eightTotal);
+  console.log(nameOfState);
 
 // if(idArray[0] == 'eight')
-drawOnChangeEightMaps(idArray[0],idArray[1], eightTotal);
+drawOnChangeEightMaps(idArray[0],idArray[1], eightTotal, nameOfState);
 
-function drawOnChangeEightMaps(mapID,svgId,totalValueArr) {
+function drawOnChangeEightMaps(mapID,svgId,totalValueArr, nameOfState) {
 
     console.log(mapID,svgId);
 
-    // d3.select(mapID).selectAll(svgId).remove();
-    //d3.select(svgId).selectAll('g').remove();
 
     var outerWidth = 280;
     var outerHeight = 350;
@@ -458,8 +452,6 @@ function drawOnChangeEightMaps(mapID,svgId,totalValueArr) {
         .attr("height", outerHeight)
         .attr("id",svgId);
 
-    // console.log(svg);
-//var svg = d3.select(svgId);
 
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -499,7 +491,7 @@ function drawOnChangeEightMaps(mapID,svgId,totalValueArr) {
 
             var index = parseFloat([totalValueArr[1].indexOf(d.id)]);
 
-            return  "<span>" + d3.format('.2s')(prop) + "<span>";
+            return  "<span>" + nameOfState[index][prop] + " : " + d3.format('.2s')(prop) + "<span>";
 
         });
     /**
@@ -526,11 +518,6 @@ function drawOnChangeEightMaps(mapID,svgId,totalValueArr) {
 
 }//indyMapData ends here
 
-
-
-
-
-// for(var eachObj in eightMapObj){
 queue()
     .defer(d3.json, "js/us.json")
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=" + apiKey)
@@ -666,9 +653,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
 
 
 
-    function drawEightMaps(mapID, svgId, totalValueArr) {
-
-        // d3.select(svgId).selectAll('g').remove();
+function drawEightMaps(mapID, svgId, totalValueArr) {
 
         var outerWidth = 280;
         var outerHeight = 350;
