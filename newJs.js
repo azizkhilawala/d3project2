@@ -377,6 +377,7 @@ drawOnChangeEightMaps(idArray[0],idArray[1], eightTotal);
 function drawOnChangeEightMaps(mapID,svgId,totalValueArr) {
 
     console.log(mapID,svgId);
+
     // d3.select(mapID).selectAll(svgId).remove();
     d3.select(svgId).selectAll('g').remove();
 
