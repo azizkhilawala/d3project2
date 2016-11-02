@@ -336,17 +336,79 @@ for(var i=1;i<=8;i++){
 //onchange method
 $("#eight-mapdrop-1").on('change', function(){
   var value = $(this).val();
-  console.log(value);
-  fetchMapData(value,'#eight-map-1');
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-1','#totalPopulationMap');
 });
+
+//onchange method
+$("#eight-mapdrop-2").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-2','#totalMedianAgeMap');
+});
+
+//onchange method
+$("#eight-mapdrop-3").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-3','#totalMedianIncomeMap');
+});
+
+//onchange method
+$("#eight-mapdrop-4").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-4','#totalRaceMap');
+});
+
+//onchange method
+$("#eight-mapdrop-5").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-5','#totalNativeMap');
+});
+
+//onchange method
+$("#eight-mapdrop-6").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-6','#totalPovertyMap');
+});
+
+//onchange method
+$("#eight-mapdrop-7").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-7','#totalCarMap');
+});
+
+//onchange method
+$("#eight-mapdrop-8").on('change', function(){
+  var value = $(this).val();
+  $(this).siblings('svg').remove();
+  fetchMapData(value,'#eight-map-8','#totalPublicMap');
+});
+
+// drawEightMaps('#eight-map-1', 'totalPopulationMap', totalPopArr);
+// drawEightMaps('#eight-map-2', 'totalMedianAgeMap', medianAgeArr);
+// drawEightMaps('#eight-map-3', 'totalMedianIncomeMap', medianIncomeArr);
+// drawEightMaps('#eight-map-4', 'totalRaceMap', raceArr);
+// drawEightMaps('#eight-map-5', 'totalNativeMap', nativeArr);
+// drawEightMaps('#eight-map-6', 'totalPovertyMap', povertyArr);
+// drawEightMaps('#eight-map-7', 'totalCarMap', carTranArr);
+// drawEightMaps('#eight-map-8', 'totalPublicMap', publicTranArr);
+
 
 var idArray =  []
 function fetchMapData(val){
+  idArray.length = 0;
   idArray.push(arguments[1]);
+  idArray.push(arguments[2]);
   queue()
   .defer(d3.json,'js/us.json')
   .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,"+val+"&for=state:*&key=" + apiKey)
-  .await(indyMap,arguments[1]);
+  .await(indyMap);
+  // .await(indyMap,arguments[1);
 }
 var eight1 = [];
 var eight2 = [];
@@ -370,11 +432,14 @@ function indyMap(error,usjson,data){
   console.log(eightTotal);
 
 // if(idArray[0] == 'eight')
-drawOnChangeEightMaps(idArray[0], eightTotal);
+drawOnChangeEightMaps(idArray[0],idArray[1], eightTotal);
 
-function drawOnChangeEightMaps(mapID,totalValueArr) {
+function drawOnChangeEightMaps(mapID,svgId,totalValueArr) {
 
-    d3.select(mapID).selectAll('g').remove();
+    console.log(mapID,svgId);
+
+    // d3.select(mapID).selectAll(svgId).remove();
+    //d3.select(svgId).selectAll('g').remove();
 
     var outerWidth = 280;
     var outerHeight = 350;
@@ -387,10 +452,14 @@ function drawOnChangeEightMaps(mapID,totalValueArr) {
 
     var innerWidth = outerWidth - margin.left - margin.right;
     var innerHeight = outerHeight - margin.top - margin.bottom;
+
     var svg = d3.select(mapID).append("svg")
         .attr("width", outerWidth)
         .attr("height", outerHeight)
+        .attr("id",svgId);
 
+    // console.log(svg);
+//var svg = d3.select(svgId);
 
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -586,14 +655,14 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     console.log("totalPopArr and medianAgeArr for 8 maps", totalPopArr, medianAgeArr);
     //function start here
 
-    drawEightMaps('#eight-map-1', '#totalPopulationMap', totalPopArr);
-    drawEightMaps('#eight-map-2', '#totalMedianAgeMap', medianAgeArr);
-    drawEightMaps('#eight-map-3', '#totalMedianIncomeMap', medianIncomeArr);
-    drawEightMaps('#eight-map-4', '#totalRaceMap', raceArr);
-    drawEightMaps('#eight-map-5', '#totalNativeMap', nativeArr);
-    drawEightMaps('#eight-map-6', '#totalPovertyMap', povertyArr);
-    drawEightMaps('#eight-map-7', '#totalCarMap', carTranArr);
-    drawEightMaps('#eight-map-8', '#totalPublicMap', publicTranArr);
+    drawEightMaps('#eight-map-1', 'totalPopulationMap', totalPopArr);
+    drawEightMaps('#eight-map-2', 'totalMedianAgeMap', medianAgeArr);
+    drawEightMaps('#eight-map-3', 'totalMedianIncomeMap', medianIncomeArr);
+    drawEightMaps('#eight-map-4', 'totalRaceMap', raceArr);
+    drawEightMaps('#eight-map-5', 'totalNativeMap', nativeArr);
+    drawEightMaps('#eight-map-6', 'totalPovertyMap', povertyArr);
+    drawEightMaps('#eight-map-7', 'totalCarMap', carTranArr);
+    drawEightMaps('#eight-map-8', 'totalPublicMap', publicTranArr);
 
 
 
