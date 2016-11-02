@@ -473,11 +473,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     var eight2 = [];
     var eightTotal = [];
 
-    $("#eight-mapdrop-1").on('change', function(){
-      var value = $(this).val();
-      fetchMapData(value);
-      drawEightMaps('#eight-map-1', '#totalPopulationMap', eightTotal);
-    });
+
 
     function fetchMapData(val){
       queue()
@@ -492,16 +488,25 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
       data.splice(0, 1);
       data.forEach(function(index) {
           if (index[1] > 0) {
-              eight1.push(parseInt(index[1])); //value
+              eight1.push(Math.floor(parseInt(index[1]))); //value
               eight2.push(parseInt(index[2])); //state id
           }
       });
+
+      eightTotal.push(eight1);
+      eightTotal.push(eight2);
+      console.log(eightTotal);
     }
-    eightTotal.push(eight1);
-    eightTotal.push(eight2);
+
+
+    $("#eight-mapdrop-1").on('change', function(){
+      var value = $(this).val();
+      fetchMapData(value);
+      drawEightMaps('#eight-map-1', '#totalPopulationMap', eightTotal);
+    });
 
     function drawEightMaps(mapID, svgId, totalValueArr) {
-
+        d3.select(svgId).selectAll('g').remove();
         var outerWidth = 280;
         var outerHeight = 350;
         var margin = {
