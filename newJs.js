@@ -326,9 +326,144 @@ var eightMapObj = {
 
 var apiKey = "576299d4bf73993515a4994ffe79fcee7fe72b09";
 
+//onchange dropdown of 8 maps population
+for(var i=1;i<=8;i++){
+  for(var attr in biggestObject){
+    $("#eight-mapdrop-"+i).append('<option value='+biggestObject[attr]+'>'+ attr +'</option>');
+  }
+}
+
+//onchange method
+$("#eight-mapdrop-1").on('change', function(){
+  var value = $(this).val();
+  console.log(value);
+  fetchMapData(value,'#eight-map-1');
+});
+
+var idArray =  []
+function fetchMapData(val){
+  idArray.push(arguments[1]);
+  queue()
+  .defer(d3.json,'js/us.json')
+  .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,"+val+"&for=state:*&key=" + apiKey)
+  .await(indyMap,arguments[1]);
+}
+var eight1 = [];
+var eight2 = [];
+var eightTotal = [];
+
+function indyMap(error,usjson,data){
+  eight1.length = 0;
+  eight2.length = 0;
+  eightTotal.length = 0;
+  data.splice(0, 1);
+  data.forEach(function(index) {
+      if (index[1] > 0) {
+          eight1.push(Math.floor(parseInt(index[1]))); //value
+          eight2.push(parseInt(index[2])); //state id
+      }
+  });
+
+  eightTotal.push(eight1);
+  eightTotal.push(eight2);
+
+  console.log(eightTotal);
+
+// if(idArray[0] == 'eight')
+drawOnChangeEightMaps(idArray[0], eightTotal);
+
+function drawOnChangeEightMaps(mapID,totalValueArr) {
+
+    d3.select(mapID).selectAll('g').remove();
+
+    var outerWidth = 280;
+    var outerHeight = 350;
+    var margin = {
+        left: 20,
+        top: 20,
+        right: 20,
+        bottom: 20
+    };
+
+    var innerWidth = outerWidth - margin.left - margin.right;
+    var innerHeight = outerHeight - margin.top - margin.bottom;
+    var svg = d3.select(mapID).append("svg")
+        .attr("width", outerWidth)
+        .attr("height", outerHeight)
+
+
+    var g = svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    //linear scale for linear gradient from color1 to color2
+    var quantize = d3.scale.linear()
+        .domain([d3.min(totalValueArr[0]), d3.max(totalValueArr[0])])
+        .range(["#f7fcfd", "#00441b"]);
+
+    var projection = d3.geo.albersUsa()
+        .scale(300)
+        .translate([innerWidth / 2, innerHeight / 2]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    svg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(50,290)");
+
+    var legendLinear = d3.legend.color()
+        .shapeWidth(30)
+        .orient('horizontal')
+        .cells(5)
+        .labelFormat(d3.format('.2s'))
+        .scale(quantize);
+
+    /**
+     * tooltip code trial
+     */
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+
+            var prop = totalValueArr[0][totalValueArr[1].indexOf(d.id)];
+
+            var index = parseFloat([totalValueArr[1].indexOf(d.id)]);
+
+            return  "<span>" + d3.format('.2s')(prop) + "<span>";
+
+        });
+    /**
+     * tooltip code ends
+     */
+
+    svg.call(tip);
+    svg.select(".legendLinear")
+        .call(legendLinear);
+
+    //to show state borders only
+    svg.append("g")
+        .selectAll("path")
+        .data(topojson.feature(usjson, usjson.objects.states).features)
+        .enter().append("path")
+        .attr("d", path)
+        .style("fill", function(d) {
+            return quantize(totalValueArr[0][totalValueArr[1].indexOf(d.id)]);
+        }).classed("states", "true")
+        .on("mouseover", tip.show)
+        .on("mouseleave", tip.hide);
+
+} //function end here
+
+}//indyMapData ends here
+
+
+
+
+
 // for(var eachObj in eightMapObj){
 queue()
-    .defer(d3.json, "http://bl.ocks.org/mbostock/raw/4090846/us.json")
+    .defer(d3.json, "js/us.json")
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01003_001E&for=state:*&key=" + apiKey)
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B01002_001E&for=state:*&key=" + apiKey)
     .defer(d3.json, "http://api.census.gov/data/2015/acs1?get=NAME,B19013_001E&for=state:*&key=" + apiKey)
@@ -358,7 +493,6 @@ var ptr2 = [];
 
 
 function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, race, native, poverty, carTran, publicTran) {
-
     totalPopulation.splice(0, 1);
     totalPopulation.forEach(function(index) {
         if (index[1] > 0) {
@@ -461,7 +595,11 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     drawEightMaps('#eight-map-7', '#totalCarMap', carTranArr);
     drawEightMaps('#eight-map-8', '#totalPublicMap', publicTranArr);
 
+
+
     function drawEightMaps(mapID, svgId, totalValueArr) {
+
+        // d3.select(svgId).selectAll('g').remove();
 
         var outerWidth = 280;
         var outerHeight = 350;
@@ -517,7 +655,7 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
 
                 var index = parseFloat([totalValueArr[1].indexOf(d.id)]);
 
-                return  + "<span>" + d3.format('.2s')(prop) + "<span>";
+                return  "<span>" + d3.format('.2s')(prop) + "<span>";
 
             });
         /**
@@ -557,7 +695,7 @@ var svg = d3.select("#choropeth"),
     height = +svg.attr("height");
 
 $(document).ready(function() {
-    //console.log(window.innerWidth,window.innerHeight);
+
     scselection = $('#disptype input:radio:checked').val();
     $("#addDataSetNameHere").text("Total Population within the locality");
     queue()
@@ -849,6 +987,11 @@ function drawMap(error, usdata) {
                 //console.log("idCounty", idCounty);
                 onClickCountyName.push(countyName);
                 console.log("countyName",countyName);
+
+                if( dataselection == "B01003_001E" || "B19013_001E" || "B19301_001E" ){
+
+                }
+
                 /*********************************************************************************
                  age distribution by sex on click modal code
                  *********************************************************************************/
