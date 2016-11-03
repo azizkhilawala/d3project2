@@ -436,7 +436,6 @@ function drawOnChangeEightMaps(mapID,svgId,totalValueArr, nameOfState) {
 
     console.log(mapID,svgId);
 
-
     var outerWidth = 280;
     var outerHeight = 350;
     var margin = {
