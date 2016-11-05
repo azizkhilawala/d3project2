@@ -3836,7 +3836,29 @@ function drawPieChart(pienumber, data1) {
 
     var piegroup = svg1.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+/**********************************************************************************
+                      Tooltip code for pie chart starts here
+************************************************************************************/
 
+        /**
+         * tooltip code trial
+         */
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function(d) {
+
+                return  "<span>" + d.data.label + "<span>";
+
+            });
+        /**
+         * tooltip code ends
+         */
+
+        svg.call(tip);
+        /**********************************************************************************
+                              Tooltip code for pie chart ends here
+        ************************************************************************************/
     var path = piegroup.selectAll('path')
         .data(pie(data1))
         .enter()
@@ -3845,6 +3867,8 @@ function drawPieChart(pienumber, data1) {
         .style('fill', function(d) {
             return color(d.data.label);
         })
+        .on('mouseover',tip.show)
+        .on('mouseleave',tip.hide)
         .on("click", function(d) {
             var str = d.data.code;
             dataselection = str; //.slice(0, 6) + "_" + str.slice(6 , 9)+"E";
