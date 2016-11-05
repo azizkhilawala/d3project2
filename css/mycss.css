@@ -1,21 +1,45 @@
 *{
   box-sizing: border-box;
 }
+#mainBarChart path{
+    fill: none;
+    stroke: #e1e1e1;
+}
+
+#mainBarChartCounty path{
+    fill: none;
+    stroke: #e1e1e1;
+}
+
+#mainBarChartCounty2 path{
+    fill: none;
+    stroke: #e1e1e1;
+}
+
+/*#mainPieChart path{
+  /*stroke: black;
+}*/
     .counties {
-        fill: gray;
+        fill: none;
         stroke: black;
         stroke-width: .1px;
     }
 
-    path {
+     path.counties{
         fill: white;
         stroke: black;
         stroke-width: .1px;
     }
 
-    .states {
+    /*.states{
+        fill: white;
+        stroke: black;
+        stroke-width: .1px;
+    }*/
+
+    path.states {
         fill: none;
-        stroke: #black;
+        stroke: black;
         stroke-linejoin: round;
         stroke-width: .1px;
     }

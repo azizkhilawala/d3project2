@@ -426,8 +426,8 @@ function indyMap(error,usjson,data){
   eightTotal.push(eight1);
   eightTotal.push(eight2);
 
-  console.log(eightTotal);
-  console.log(nameOfState);
+  // console.log(eightTotal);
+  // console.log(nameOfState);
 
 // if(idArray[0] == 'eight')
 drawOnChangeEightMaps(idArray[0],idArray[1], eightTotal, nameOfState);
@@ -640,7 +640,8 @@ function getMapsData(error, usjson, totalPopulation, medianAge, medianIncome, ra
     publicTranArr.push(ptr2);
 
     // logging data
-    console.log("totalPopArr and medianAgeArr for 8 maps", totalPopArr, medianAgeArr);
+    // console.log("totalPopArr and medianAgeArr for 8 maps", totalPopArr, medianAgeArr);
+
     //function start here
 
     drawEightMaps('#eight-map-1', 'totalPopulationMap', totalPopArr);
@@ -895,7 +896,7 @@ function drawMap(error, usdata) {
     /**********aziz code added for name section ends*******************************/
 
     var d = [],
-        d1 = [];
+       d1 = [];
 
     if (scselection == "county") {
 
@@ -1029,15 +1030,24 @@ function drawMap(error, usdata) {
                         $("#modal-title-county").text(countyName+" | "+name+ " - " +prop);
                     }
                 }
-                //modal code for county - start
-                $("#modal-section-county").modal('show');
 
-                console.log("index", countyNameObj[index]);
+
+                //console.log("index", countyNameObj[index]);
                 onClickCountyName.push(countyName);
-                console.log("countyName",countyName);
+                //console.log("countyName",countyName);
 
-                if( dataselection == "B01003_001E" || "B19013_001E" || "B19301_001E" ){
-
+                if( dataselection === "B01003_001E"){
+                    $('#modal-section-county').modal('hide');
+                }
+                else if(dataselection === "B19013_001E"){
+                  $('#modal-section-county').modal('hide');
+                }
+                else if(dataselection === "B19301_001E"){
+                  $('#modal-section-county').modal('hide');
+                }
+                else{
+                  //modal code for county - start
+                  $("#modal-section-county").modal('show');
                 }
 
                 /*********************************************************************************
@@ -1836,7 +1846,7 @@ drawBarChartCounty(eduObjArray,eduObjValues,'#mainBarChartCounty','level','popul
                     g.append("g")
                         .append("text")
                         .attr("transform", "rotate(0)")
-                        .attr("x", 5)
+                        .attr("x", 10)
                         .attr("y", -15)
                         .attr("dy", ".71em")
                         .style("text-anchor", "end")
@@ -1846,7 +1856,7 @@ drawBarChartCounty(eduObjArray,eduObjValues,'#mainBarChartCounty','level','popul
                     g.append("g")
                         .append("text")
                         .attr("transform", "rotate(0)")
-                        .attr("x", 750)
+                        .attr("x", 850)
                         .attr("y", 180)
                         .attr("dx", ".71em")
                         .style("text-anchor", "end")
@@ -2086,7 +2096,7 @@ function getLivingCountyData2(error,data){
                                 g.append("g")
                                     .append("text")
                                     .attr("transform", "rotate(0)")
-                                    .attr("x", 750)
+                                    .attr("x", 850)
                                     .attr("y", 180)
                                     .attr("dx", ".71em")
                                     .style("text-anchor", "end")
@@ -2236,8 +2246,6 @@ function getLivingCountyData2(error,data){
             .enter().append("path")
             .attr("d", path)
             .style("fill", function(d) {
-                // console.log("data", d);
-                // console.log("data id", arr[1].indexOf(d.id));
                 return quantize(arr[0][arr[1].indexOf(d.id)]);
             })
             .classed("states", "true")
@@ -2596,18 +2604,49 @@ function getLivingCountyData2(error,data){
 
                         xAxisG.call(xAxis);
 
+                        // add the tooltip area to the webpage
+                        var tooltip = d3.select("body").append("div")
+                            .attr("class", "tooltip")
+                            .style("opacity", 0);
+                        // /**
+                        //  * tooltip code trial
+                        //  */
+                        // var tip = d3.tip()
+                        //     .attr('class', 'd3-tip')
+                        //     .offset([-10, 0])
+                        //     .html(function(d) {
+                        //         console.log("in tip", d.data.sex,d.data.age);
+                        //         return "<strong>" + d.data.sex + " : " + d.data.age + "</strong> <span>";
+                        //     });
+                        // /**
+                        //  * tooltip code ends
+                        //  */
+
+
                         var pieData = pie(data);
 
                         pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
                         var slices = pieG.selectAll("path").data(pieData);
+
                         slices.enter().append("path");
+
                         slices.attr("d", arc)
                             .attr("fill", function(d) {
                                 return colorScale(d.data[colorColumn]);
-                            }).attr("class", "pathFill");
+                            }).attr("class", "pathFill").on('mouseover',function(d){
+                                  d3.select(this)
+                                  .style('opacity', .5);
+                            tooltip.style('opacity', 0.9)
+                            tooltip.html("(" + d.data.sex + " , " + d.data.age + ")")
+                                .style('left', (d3.event.pageX + 5) + "px")
+                                .style('top', (d3.event.pageY - 28) + "px")
+                        }).on('mouseout', function(d) {
+                        d3.select(this)
+                            .style('opacity', 1)
+                        tooltip.style('opacity', 0)
+                    });
                         slices.exit().remove();
-
                     }
 
                     render(medianAgeObjArray);
