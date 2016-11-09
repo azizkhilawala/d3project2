@@ -968,7 +968,7 @@
                 .attr('class', 'd3-tip')
                 .offset([-10, 0])
                 .html(function(d,i) {
-                    return "<strong>" + variable.name[i] + " : </strong><div> + + </div>";
+                    return "<strong>" + variable.name[i] + " : </strong><div>(" + variable.array[i] +", "+ variable1.array[i] + ")</div>";
                 });
 
 
